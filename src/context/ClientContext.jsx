@@ -1,0 +1,74 @@
+import {
+  doc,
+  serverTimestamp,
+  setDoc,
+  getDoc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
+import { createContext, useState, useContext } from "react";
+import { db } from "../firebase";
+import CreateModalContext from "./CreateModalContext";
+
+const ClientContext = createContext();
+
+export const ClientContextProvider = ({ children }) => {
+  const [clientList, setClientList] = useState();
+  const { setShowModal } = useContext(CreateModalContext);
+
+  const createClient = async (clientData) => {
+    const clientDocRef = doc(db, "clients", clientData.clientEmail);
+    const docSnap = await getDoc(clientDocRef);
+    if (!docSnap.exists()) {
+      try {
+        await setDoc(doc(db, "clients", clientData.clientEmail), {
+          ...clientData,
+          timestamp: serverTimestamp(),
+        });
+        getClients();
+        setShowModal(false);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log(docSnap);
+    }
+  };
+
+  const getClients = async () => {
+    const clientListRef = collection(db, "clients");
+    const docSnap = await getDocs(clientListRef);
+
+    const testArr = [];
+
+    docSnap.forEach((doc) => {
+      const {
+        clientName,
+        clientEmail,
+        clientPhone,
+        clientPostcode,
+        clientType,
+      } = doc.data();
+
+      const clientObj = {
+        clientName,
+        clientEmail,
+        clientPhone,
+        clientPostcode,
+        clientType,
+      };
+
+      testArr.push(clientObj);
+    });
+
+    setClientList(testArr);
+  };
+
+  return (
+    <ClientContext.Provider value={{ createClient, getClients, clientList }}>
+      {children}
+    </ClientContext.Provider>
+  );
+};
+
+export default ClientContext;
