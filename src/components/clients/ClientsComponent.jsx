@@ -1,8 +1,6 @@
 // COMPONENTS
 import Card from "../Card";
 import Table from "../table/Table";
-// DATA
-import { tableDataProducts } from "../../data/fakeTableData";
 // REACT
 import { useContext, useEffect } from "react";
 // ASSETS
@@ -20,13 +18,12 @@ import Loading from "../loading/Loading";
 function ClientsComponent() {
   const { setShowModal } = useContext(CreateModalContext);
   const { darkMode } = useContext(DarkModeContext);
-  const { getClients, clientList } = useContext(ClientContext);
+  const { getClients, clientListShort } = useContext(ClientContext);
 
-  const colNames = ["Name", "Email", "Phone", "Postcode", "Type"];
+  const colNames = ["Name", "Email", "Postcode", "Type"];
 
   useEffect(() => {
-    getClients();
-    console.log(clientList);
+    getClients(true, false);
   }, []);
 
   return (
@@ -70,9 +67,9 @@ function ClientsComponent() {
         </div>
       </header>
 
-      {clientList ? (
+      {clientListShort ? (
         <section className="hidden w-full mt-4 lg:flex flex-col md:flex-row h-full">
-          <Table tableData={clientList} colNames={colNames} />
+          <Table tableData={clientListShort} colNames={colNames} />
         </section>
       ) : (
         <section className="hidden items-center justify-center w-full mt-4 lg:flex flex-col md:flex-row h-full">

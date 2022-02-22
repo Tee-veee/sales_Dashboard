@@ -11,28 +11,34 @@ import { AlertProvider } from "./context/AlertContext";
 // PAGES
 import Home from "./pages/Home";
 import { ProductContextProvider } from "./context/ProductContext";
+import { CategoryProvider } from "./context/CategoryContext";
+import { SupplierContextProvider } from "./context/SupplierContext";
 
 function App() {
   return (
     <Router>
       <CreateModalProvider>
-        <ClientContextProvider>
-          <ProductContextProvider>
-            <AlertProvider>
-              <DarkModeProvider>
-                <ThemeProvider>
-                  <SidebarProvider>
-                    <UserProvider>
-                      <Routes>
-                        <Route path="/" element={<Home />} />
-                      </Routes>
-                    </UserProvider>
-                  </SidebarProvider>
-                </ThemeProvider>
-              </DarkModeProvider>
-            </AlertProvider>
-          </ProductContextProvider>
-        </ClientContextProvider>
+        <CategoryProvider>
+          <SupplierContextProvider>
+            <ClientContextProvider>
+              <ProductContextProvider>
+                <AlertProvider>
+                  <DarkModeProvider>
+                    <ThemeProvider>
+                      <SidebarProvider>
+                        <UserProvider>
+                          <Routes>
+                            <Route path="/" element={<Home />} />
+                          </Routes>
+                        </UserProvider>
+                      </SidebarProvider>
+                    </ThemeProvider>
+                  </DarkModeProvider>
+                </AlertProvider>
+              </ProductContextProvider>
+            </ClientContextProvider>
+          </SupplierContextProvider>
+        </CategoryProvider>
       </CreateModalProvider>
     </Router>
   );

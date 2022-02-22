@@ -1,10 +1,8 @@
 // COMPONENTS
 import Card from "../Card";
 import Table from "../table/Table";
-// DATA
-import { colNamesProducts, tableDataProducts } from "../../data/fakeTableData";
 // REACT
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 // ASSETS
 import { AiOutlineMail } from "react-icons/ai";
 import { RiVipDiamondFill } from "react-icons/ri";
@@ -14,10 +12,18 @@ import { MdAdd } from "react-icons/md";
 // STATE
 import CreateModalContext from "../../context/CreateModalContext";
 import DarkModeContext from "../../context/DarkModeContext";
+import SupplierContext from "../../context/SupplierContext";
+import Loading from "../loading/Loading";
 
 function SuppliersComponent() {
   const { setShowModal } = useContext(CreateModalContext);
   const { darkMode } = useContext(DarkModeContext);
+  const { getSuppliers, supplierList } = useContext(SupplierContext);
+
+  const colNames = ["Name", "Email", "Phone", "Postcode", "Category"];
+  useEffect(() => {
+    getSuppliers();
+  }, []);
 
   return (
     <main className="relative w-full h-full flex-col px-6 overflow-hidden ">
@@ -55,14 +61,20 @@ function SuppliersComponent() {
             onClick={() => setShowModal(true)}
           >
             <MdAdd className="text-2xl" />
-            <h1> Create New Client</h1>
+            <h1>Create New Supplier</h1>
           </button>
         </div>
       </header>
 
-      <section className="hidden w-full mt-4 lg:flex flex-col md:flex-row h-full">
-        <Table tableData={tableDataProducts} colNames={colNamesProducts} />
-      </section>
+      {supplierList ? (
+        <section className="hidden w-full mt-4 lg:flex flex-col md:flex-row h-full">
+          <Table tableData={supplierList} colNames={colNames} />
+        </section>
+      ) : (
+        <section className="hidden items-center justify-center w-full mt-4 lg:flex flex-col md:flex-row h-full">
+          <Loading />
+        </section>
+      )}
     </main>
   );
 }

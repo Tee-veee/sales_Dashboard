@@ -3,6 +3,7 @@ import {
   AiFillHome,
   AiOutlineShoppingCart,
   AiOutlineInbox,
+  AiOutlineUser,
 } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import { SiSimpleanalytics } from "react-icons/si";
@@ -12,11 +13,13 @@ import SidebarContext from "../../context/SidebarContext";
 import CreateModalContext from "../../context/CreateModalContext";
 import ThemeContext from "../../context/ThemeContext";
 import DarkModeContext from "../../context/DarkModeContext";
+import UserContext from "../../context/UserContext";
 function Sidebar() {
   const { selected, setSelected } = useContext(SidebarContext);
   const { setShowModal } = useContext(CreateModalContext);
   const { accentColor } = useContext(ThemeContext);
   const { darkMode } = useContext(DarkModeContext);
+  const { user } = useContext(UserContext);
 
   const handleClick = (optionTitle) => {
     setShowModal(false);
@@ -44,6 +47,10 @@ function Sidebar() {
       title: "Suppliers",
       icon: <SiSimpleanalytics />,
     },
+    {
+      title: "My Profile",
+      icon: <AiOutlineUser />,
+    },
   ];
 
   return (
@@ -59,43 +66,49 @@ function Sidebar() {
       >
         Admin Dashboard
       </h1>
-      {sidebarOptions?.map((option, i) => {
-        return (
-          <div
-            className={`flex items-center space-x-4  p-2 xl:p-3 xl:mx-4 ${
-              selected === option.title
-                ? `bg-${accentColor}-500 shadow-lg  rounded-lg border-black`
-                : ""
-            } ${
-              darkMode || selected === option.title
-                ? "text-white"
-                : "text-stone-700"
-            } hover:rounded-lg hover:text-white hover:transition-all hover:shadow-lg  cursor-pointer mx-auto  ${
-              accentColor === "red"
-                ? "hover:bg-red-500"
-                : accentColor === "pink"
-                ? "hover:bg-pink-500"
-                : accentColor === "yellow"
-                ? "hover:bg-yellow-500"
-                : accentColor === "green"
-                ? "hover:bg-green-500"
-                : accentColor === "purple"
-                ? "hover:bg-purple-500"
-                : accentColor === "orange"
-                ? "hover:bg-orange-500"
-                : accentColor === "blue"
-                ? "hover:bg-blue-500"
-                : ""
-            }`}
-            key={i}
-            id={option.title}
-            onClick={() => handleClick(option.title)}
-          >
-            <span className="text-3xl">{option.icon}</span>
-            <h1 className="hidden xl:block">{option.title}</h1>
-          </div>
-        );
-      })}
+      {user &&
+        sidebarOptions?.map((option, i) => {
+          return (
+            <div
+              className={`flex items-center space-x-4  p-2 xl:p-3 xl:mx-4 ${
+                selected === option.title
+                  ? `bg-${accentColor}-500 shadow-lg  rounded-lg border-black`
+                  : ""
+              } ${
+                darkMode || selected === option.title
+                  ? "text-white"
+                  : "text-stone-700"
+              } hover:rounded-lg hover:text-white hover:transition-all hover:shadow-lg  cursor-pointer mx-auto  ${
+                accentColor === "red"
+                  ? "hover:bg-red-500"
+                  : accentColor === "pink"
+                  ? "hover:bg-pink-500"
+                  : accentColor === "yellow"
+                  ? "hover:bg-yellow-500"
+                  : accentColor === "green"
+                  ? "hover:bg-green-500"
+                  : accentColor === "purple"
+                  ? "hover:bg-purple-500"
+                  : accentColor === "orange"
+                  ? "hover:bg-orange-500"
+                  : accentColor === "blue"
+                  ? "hover:bg-blue-500"
+                  : ""
+              }`}
+              key={i}
+              id={option.title}
+              onClick={() => handleClick(option.title)}
+            >
+              <span className="text-3xl">{option.icon}</span>
+              <h1 className="hidden xl:block">{option.title}</h1>
+            </div>
+          );
+        })}
+      {!user && (
+        <h1 className={`p-4 ${darkMode ? "text-white" : "text-stone-600"}`}>
+          Sign in to access company dashboard.
+        </h1>
+      )}
     </div>
   );
 }

@@ -28,7 +28,7 @@ function SalesComponent() {
   const { setShowModal } = useContext(CreateModalContext);
 
   return (
-    <main className="w-full h-full flex-col pb-10">
+    <main className="w-full h-full flex-col ">
       <header className="w-fit pt-10 px-6">
         <h1
           className={`text-3xl ${darkMode ? " text-white" : "text-stone-700"}`}
@@ -46,7 +46,7 @@ function SalesComponent() {
           </div>
         </section>
       </section>
-      <div className="w-full px-6 mt-10 mb-4 flex items-center justify-between">
+      <div className="w-full px-6 mt-8 mb-4 flex items-center justify-between">
         <button
           className={`px-4 py-2 border-2 rounded-lg flex items-center space-x-2 hover:scale-95 hover:transition-all ${
             darkMode ? "text-white border-white" : "text-stone-700 border-black"
@@ -70,8 +70,8 @@ function SalesComponent() {
             <Table colNames={colNamesOneSales} tableData={salesDataOne} />
           </div>
         </div>
-        <div className="w-full lg:w-6/12">
-          <div className="px-2 w-full hidden xl:block">
+        <div className="w-full hidden lg:block lg:w-6/12">
+          <div className="px-2 w-full  xl:block">
             <Table colNames={colNamesTwoSales} tableData={salesDataTwo} />
           </div>
         </div>

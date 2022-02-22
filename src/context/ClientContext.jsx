@@ -13,7 +13,8 @@ import CreateModalContext from "./CreateModalContext";
 const ClientContext = createContext();
 
 export const ClientContextProvider = ({ children }) => {
-  const [clientList, setClientList] = useState();
+  const [clientListShort, setClientListShort] = useState();
+  const [clientListLong, setClientListLong] = useState();
   const { setShowModal } = useContext(CreateModalContext);
 
   const createClient = async (clientData) => {
@@ -35,37 +36,64 @@ export const ClientContextProvider = ({ children }) => {
     }
   };
 
-  const getClients = async () => {
+  const getClients = async (shortList, longList) => {
     const clientListRef = collection(db, "clients");
     const docSnap = await getDocs(clientListRef);
+    console.log(shortList);
 
     const testArr = [];
 
-    docSnap.forEach((doc) => {
-      const {
-        clientName,
-        clientEmail,
-        clientPhone,
-        clientPostcode,
-        clientType,
-      } = doc.data();
+    if (shortList === true) {
+      docSnap.forEach((doc) => {
+        const { clientName, clientEmail, clientPostcode, clientType } =
+          doc.data();
 
-      const clientObj = {
-        clientName,
-        clientEmail,
-        clientPhone,
-        clientPostcode,
-        clientType,
-      };
+        const clientObj = {
+          clientName,
+          clientEmail,
+          clientPostcode,
+          clientType,
+        };
 
-      testArr.push(clientObj);
-    });
+        testArr.push(clientObj);
+      });
 
-    setClientList(testArr);
+      setClientListShort(testArr);
+    }
+
+    if (longList === true) {
+      docSnap.forEach((doc) => {
+        const {
+          clientName,
+          clientEmail,
+          clientAddress,
+          clientSuburb,
+          clientPostcode,
+          clientPhone,
+          clientType,
+        } = doc.data();
+
+        const clientObj = {
+          clientName,
+          clientEmail,
+          clientAddress,
+          clientSuburb,
+          clientPostcode,
+          clientPhone,
+          clientType,
+        };
+
+        testArr.push(clientObj);
+      });
+
+      setClientListLong(testArr);
+    }
   };
 
   return (
-    <ClientContext.Provider value={{ createClient, getClients, clientList }}>
+    <ClientContext.Provider
+      value={{ createClient, getClients, clientListShort, clientListLong }}
+    >
       {children}
     </ClientContext.Provider>
   );
