@@ -3,19 +3,21 @@ import UserContext from "../../../context/UserContext";
 
 function ProfileModalContent() {
   const { user, updateUser } = useContext(UserContext);
-  const [username, setUsername] = useState(user.username);
+
+  const [username, setUsername] = useState(user.name);
   const [userEmail, setUserEmail] = useState(user.email);
   const [formData, setFormData] = useState({
-    userSuburb: "",
-    userPostcode: "",
-    userPhone: "",
-    userType: "",
+    userAddress: user.address,
+    userSuburb: user.suburb,
+    userPostcode: user.postcode,
+    userPhone: user.phone,
+    userType: user.type,
   });
 
   return (
     <main className="w-fit flex flex-col space-y-6 h-fit pb-6   rounded-lg">
       <h1 className="text-center text-2xl lg:text-5xl">
-        {user.username} - Edit Details
+        {user.name} - Edit Details
       </h1>
       <div className="w-full  flex flex-col  ">
         <label htmlFor="name" className="text-sm">
@@ -30,7 +32,7 @@ function ProfileModalContent() {
         />
       </div>
       <div className="w-full  flex flex-col  ">
-        <label htmlFor="address" className="text-sm">
+        <label htmlFor="email" className="text-sm">
           Email
         </label>
         <input
@@ -41,6 +43,20 @@ function ProfileModalContent() {
           onChange={(e) => setUserEmail(e.target.value)}
         />
       </div>
+      <div className="w-full  flex flex-col  ">
+        <label htmlFor="address" className="text-sm">
+          Address
+        </label>
+        <input
+          type="text"
+          name="address"
+          value={formData.userAddress}
+          className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+          onChange={(e) =>
+            setFormData({ ...formData, userAddress: e.target.value })
+          }
+        />
+      </div>
       <div className="w-6/12  flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
         <div className="flex flex-col">
           <label htmlFor="suburb" className="text-sm">
@@ -49,6 +65,7 @@ function ProfileModalContent() {
           <input
             type="text"
             name="suburb"
+            value={formData.userSuburb}
             className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
             onChange={(e) =>
               setFormData({ ...formData, userSuburb: e.target.value })
@@ -62,6 +79,7 @@ function ProfileModalContent() {
           <input
             type="text"
             name="postcode"
+            value={formData.userPostcode}
             className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
             onChange={(e) =>
               setFormData({ ...formData, userPostcode: e.target.value })
@@ -76,6 +94,7 @@ function ProfileModalContent() {
         <input
           type="text"
           name="phone"
+          value={formData.userPhone}
           className="text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all"
           onChange={(e) =>
             setFormData({ ...formData, userPhone: e.target.value })
@@ -90,6 +109,7 @@ function ProfileModalContent() {
           type="text"
           name="type"
           className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+          value={formData.userType}
           onChange={(e) =>
             setFormData({ ...formData, userType: e.target.value })
           }

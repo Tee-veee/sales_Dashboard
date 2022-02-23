@@ -1,29 +1,32 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { auth, db } from "../firebase";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-
+import CreateModalContext from "./CreateModalContext";
+import SidebarContext from "./SidebarContext";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userListShort, setUserListShort] = useState();
   const [userListLong, setUserListLong] = useState();
-
+  const { setShowModal } = useContext(CreateModalContext);
+  const { setSelected } = useContext(SidebarContext);
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
     const currentUser = {
-      username: user.displayName,
+      name: user.displayName,
       email: user.email,
       uid: user.uid,
       image: user.photoURL,
@@ -48,15 +51,18 @@ export const UserProvider = ({ children }) => {
       const usersSnapshot = await getDocs(usersQuery);
 
       const checkUserUID = currentUser.uid;
+
       const users = [];
       // MAPS ALL THE USER.EMAILS STORED IN FIREBASE INTO AN ARRAY
       usersSnapshot.docs.map((userDoc) => {
-        return users.push(userDoc.uid);
+        return users.push(userDoc.id);
       });
 
       // IF THE ARR INCLUDES THE CURRENT EMAIL VALUE, THEN THE USER ALREADY EXISTS && RETURN
       if (users.includes(checkUserUID)) {
-        return;
+        const docRef = doc(db, "users", checkUserUID);
+        const docSnap = await getDoc(docRef);
+        return setUser(docSnap.data());
       } else {
         // CREATE USER
         await setDoc(doc(db, "users", currentUser.uid), {
@@ -73,6 +79,7 @@ export const UserProvider = ({ children }) => {
   const signOutWithGoogle = async () => {
     signOut(auth);
     setUser(null);
+    setSelected("Home");
   };
 
   const getUsers = async (shortList, longList) => {
@@ -117,13 +124,15 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateUser = async (newEmail, newName, userData, longList) => {
-    const { userSuburb, userPhone, userType, userPostcode } = userData;
+    const { userSuburb, userPhone, userType, userPostcode, userAddress } =
+      userData;
 
     const userRef = doc(db, "users", user.uid);
 
     await updateDoc(userRef, {
       name: newName,
       email: newEmail,
+      address: userAddress,
       suburb: userSuburb,
       postcode: userPostcode,
       phone: userPhone,
@@ -131,6 +140,7 @@ export const UserProvider = ({ children }) => {
     });
 
     getUsers(longList);
+    setShowModal(false);
   };
 
   return (

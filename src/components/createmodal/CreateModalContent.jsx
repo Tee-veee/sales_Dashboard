@@ -3,7 +3,7 @@ import SidebarContext from "../../context/SidebarContext";
 import ClientModalContent from "./modalcontent/ClientModalContent";
 import ProductModalContent from "./modalcontent/ProductModalContent";
 import ProfileModalContent from "./modalcontent/ProfileModalContent";
-import SaleModalContent from "./modalcontent/SaleModalContent";
+import SaleModalContent from "./modalcontent/Sales/SaleModalContent";
 import SupplierModalContent from "./modalcontent/SupplierModalContent";
 
 function CreateModalContent() {

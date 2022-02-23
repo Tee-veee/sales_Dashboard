@@ -16,7 +16,7 @@ function Main() {
   return (
     <main
       className={`min-h-screen h-fit pl-[60px] xl:pl-[260px] pt-[60px]  ${
-        darkMode ? "bg-stone-800" : "bg-white"
+        darkMode ? "bg-stone-800" : "bg-slate-100"
       } transition-colors duration-300`}
     >
       {selected === "Home" && <HomeComponent />}

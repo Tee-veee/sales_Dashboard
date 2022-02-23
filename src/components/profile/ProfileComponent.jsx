@@ -1,11 +1,10 @@
 // COMPONENTS
 import Card from "../Card";
 // REACT
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 // ASSETS
 import { AiOutlineMail } from "react-icons/ai";
 import { RiVipDiamondFill } from "react-icons/ri";
-import { BsFilterRight } from "react-icons/bs";
 import { FaUserPlus, FaTicketAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 // STATE
@@ -53,7 +52,7 @@ function ProfileComponent() {
                   darkMode ? "text-white" : "text-stone-700"
                 } text-3xl font-semibold`}
               >
-                {user?.username}
+                {user?.name}
               </h1>
               <h2
                 className={`${

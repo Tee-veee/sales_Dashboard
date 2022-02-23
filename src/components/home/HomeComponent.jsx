@@ -34,7 +34,7 @@ function HomeComponent() {
                 darkMode ? " text-white" : "text-stone-700"
               }`}
             >
-              {user ? `Welcome back, ${user.username}.` : "Dashboard"}
+              {user ? `Welcome back, ${user.name}.` : "Dashboard"}
             </h1>
           </header>
           <section className="w-full p-4  flex flex-col md:flex-row ">

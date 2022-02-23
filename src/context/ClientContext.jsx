@@ -39,7 +39,6 @@ export const ClientContextProvider = ({ children }) => {
   const getClients = async (shortList, longList) => {
     const clientListRef = collection(db, "clients");
     const docSnap = await getDocs(clientListRef);
-    console.log(shortList);
 
     const testArr = [];
 
