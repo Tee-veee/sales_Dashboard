@@ -20,10 +20,13 @@ export const UserProvider = ({ children }) => {
   const [userListLong, setUserListLong] = useState();
   const { setShowModal } = useContext(CreateModalContext);
   const { setSelected } = useContext(SidebarContext);
+
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
+
+    console.log(user);
 
     const currentUser = {
       name: user.displayName,
@@ -37,10 +40,10 @@ export const UserProvider = ({ children }) => {
     const usersQuery = query(collection(db, "users"));
     const usersSnapshot = await getDocs(usersQuery);
 
-    // IF NO USERS CREATE USER
+    // // IF NO USERS CREATE USER
     if (usersSnapshot.docs.length === 0) {
       await setDoc(doc(db, "users", currentUser.uid), {
-        name: currentUser.username,
+        name: currentUser.name,
         email: currentUser.email,
         image: currentUser.image,
         uid: currentUser.uid,
@@ -66,7 +69,7 @@ export const UserProvider = ({ children }) => {
       } else {
         // CREATE USER
         await setDoc(doc(db, "users", currentUser.uid), {
-          name: currentUser.username,
+          name: currentUser.name,
           email: currentUser.email,
           image: currentUser.image,
           uid: currentUser.uid,

@@ -1,7 +1,7 @@
 // COMPONENTS
 import Card from "../Card";
 // REACT
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 // ASSETS
 import { AiOutlineMail } from "react-icons/ai";
 import { RiVipDiamondFill } from "react-icons/ri";
@@ -13,11 +13,17 @@ import DarkModeContext from "../../context/DarkModeContext";
 import UserContext from "../../context/UserContext";
 import Table from "../table/Table";
 import { colNamesTwoHome, tableTwoDataHome } from "../../data/fakeTableData";
+import SalesContext from "../../context/SalesContext";
 
 function ProfileComponent() {
   const { setShowModal } = useContext(CreateModalContext);
   const { darkMode } = useContext(DarkModeContext);
   const { user } = useContext(UserContext);
+  const { getUserSales } = useContext(SalesContext);
+
+  useEffect(() => {
+    getUserSales(user);
+  }, []);
 
   return (
     <main className="relative w-full h-full flex-col px-6 overflow-hidden">
@@ -82,16 +88,6 @@ function ProfileComponent() {
             }`}
           >
             My Sales
-          </h1>
-          <Table colNames={colNamesTwoHome} tableData={tableTwoDataHome} />
-        </div>
-        <div className=" w-full hidden xl:block">
-          <h1
-            className={`mb-2 text-2xl ${
-              darkMode ? "text-white" : "text-stone-700"
-            }`}
-          >
-            My Clients
           </h1>
           <Table colNames={colNamesTwoHome} tableData={tableTwoDataHome} />
         </div>

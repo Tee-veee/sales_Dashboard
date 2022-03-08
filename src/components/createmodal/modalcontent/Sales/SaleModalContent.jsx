@@ -16,7 +16,7 @@ function SaleModalContent() {
   const [useStoredAddress, setUseStoredAddress] = useState(false); // 3
   const [showCreateExtra, setShowCreateExtra] = useState(false); // 4
   const [saleClientData, setSaleClientData] = useState([]); // 5
-  const [saleUID, setSailUID] = useState(""); // 6
+  const [saleUID, setSaleUID] = useState(""); // 6
   const [showConfirm, setShowConfirm] = useState(false);
 
   // 9
@@ -57,7 +57,7 @@ function SaleModalContent() {
   const { getProducts, productsList } = useContext(ProductContext);
 
   useEffect(() => {
-    setSailUID(uuidv4());
+    setSaleUID(uuidv4());
     setFormData({
       ...formData,
       salesPerson: user.name,
@@ -535,6 +535,7 @@ function SaleModalContent() {
       )}
       {showConfirm && (
         <ConfirmSaleModal
+          saleUID={saleUID}
           formData={formData}
           saleProductOne={saleProductOne}
           saleProductTwo={saleProductTwo}

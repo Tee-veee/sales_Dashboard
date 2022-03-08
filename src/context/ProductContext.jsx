@@ -34,7 +34,6 @@ export const ProductContextProvider = ({ children }) => {
     }
   };
 
-  // NOTES -- CHANGE TO PRODUCT
   const getProducts = async () => {
     const productsListRef = collection(db, "products");
     const docSnap = await getDocs(productsListRef);

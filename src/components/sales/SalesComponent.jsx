@@ -4,28 +4,28 @@ import Table from "../table/Table";
 // ASSETS
 import { AiOutlineDollar } from "react-icons/ai";
 import { FaBriefcase } from "react-icons/fa";
-import fakeGraph from "../../assets/graphPlaceholder.svg";
 import fakeGraph2 from "../../assets/graphPlaceholder2.svg";
-// DATA
-import {
-  salesDataOne,
-  colNamesOneSales,
-  salesDataTwo,
-  colNamesTwoSales,
-} from "../../data/fakeTableData";
 // REACT
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 // STATE
 import UserContext from "../../context/UserContext";
 import DarkModeContext from "../../context/DarkModeContext";
 import { BsFilterRight } from "react-icons/bs";
 import { MdAdd } from "react-icons/md";
 import CreateModalContext from "../../context/CreateModalContext";
+import SalesContext from "../../context/SalesContext";
+import Loading from "../loading/Loading";
 
 function SalesComponent() {
-  const { user } = useContext(UserContext);
   const { darkMode } = useContext(DarkModeContext);
   const { setShowModal } = useContext(CreateModalContext);
+  const { salesList, getSales } = useContext(SalesContext);
+
+  useEffect(() => {
+    getSales();
+  }, []);
+
+  const colNames = ["Sales Person", "Client", "Client E-Mail", "Grand Total"];
 
   return (
     <main className="w-full h-full flex-col ">
@@ -64,16 +64,14 @@ function SalesComponent() {
         </button>
       </div>
       <div className="w-full flex px-4">
-        <div className="w-full flex flex-col h-fit lg:w-6/12">
-          <img src={fakeGraph2} alt="Fake Graph" className="px-2 w-full " />
-          <div className="px-2 pt-4 w-full mt-4">
-            <Table colNames={colNamesOneSales} tableData={salesDataOne} />
-          </div>
-        </div>
-        <div className="w-full hidden lg:block lg:w-6/12">
-          <div className="px-2 w-full  xl:block">
-            <Table colNames={colNamesTwoSales} tableData={salesDataTwo} />
-          </div>
+        <div className="w-full ">
+          {salesList ? (
+            <div className="px-2 w-full  xl:block">
+              <Table colNames={colNames} tableData={salesList} />
+            </div>
+          ) : (
+            <Loading />
+          )}
         </div>
       </div>
     </main>

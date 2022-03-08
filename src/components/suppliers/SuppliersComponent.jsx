@@ -21,6 +21,7 @@ function SuppliersComponent() {
   const { getSuppliers, supplierList } = useContext(SupplierContext);
 
   const colNames = ["Name", "Email", "Phone", "Postcode", "Category"];
+
   useEffect(() => {
     getSuppliers();
   }, []);

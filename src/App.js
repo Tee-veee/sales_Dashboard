@@ -13,31 +13,34 @@ import Home from "./pages/Home";
 import { ProductContextProvider } from "./context/ProductContext";
 import { CategoryProvider } from "./context/CategoryContext";
 import { SupplierContextProvider } from "./context/SupplierContext";
+import { SalesContextProvider } from "./context/SalesContext";
 
 function App() {
   return (
     <Router>
       <CreateModalProvider>
         <CategoryProvider>
-          <SupplierContextProvider>
-            <ClientContextProvider>
-              <ProductContextProvider>
-                <AlertProvider>
-                  <DarkModeProvider>
-                    <ThemeProvider>
-                      <SidebarProvider>
-                        <UserProvider>
-                          <Routes>
-                            <Route path="/" element={<Home />} />
-                          </Routes>
-                        </UserProvider>
-                      </SidebarProvider>
-                    </ThemeProvider>
-                  </DarkModeProvider>
-                </AlertProvider>
-              </ProductContextProvider>
-            </ClientContextProvider>
-          </SupplierContextProvider>
+          <SalesContextProvider>
+            <SupplierContextProvider>
+              <ClientContextProvider>
+                <ProductContextProvider>
+                  <AlertProvider>
+                    <DarkModeProvider>
+                      <ThemeProvider>
+                        <SidebarProvider>
+                          <UserProvider>
+                            <Routes>
+                              <Route path="/" element={<Home />} />
+                            </Routes>
+                          </UserProvider>
+                        </SidebarProvider>
+                      </ThemeProvider>
+                    </DarkModeProvider>
+                  </AlertProvider>
+                </ProductContextProvider>
+              </ClientContextProvider>
+            </SupplierContextProvider>
+          </SalesContextProvider>
         </CategoryProvider>
       </CreateModalProvider>
     </Router>

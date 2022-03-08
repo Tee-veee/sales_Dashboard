@@ -1,11 +1,13 @@
 import { doc, getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import SalesContext from "../../../../context/SalesContext";
 import { db } from "../../../../firebase";
 import Loading from "../../../loading/Loading";
 import SaleDetails from "./SaleDetails";
 import SaleProductDetails from "./SaleProductDetails";
 function ConfirmSaleModal({
   formData,
+  saleUID,
   saleProductOne,
   saleProductTwo,
   saleProductThree,
@@ -20,6 +22,9 @@ function ConfirmSaleModal({
   const [saleProductFiveData, setSaleProductFiveData] = useState([]);
   const [grandTotalArr, setGrandTotalArr] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
+  const [test, setTest] = useState(0);
+
+  const { createSale } = useContext(SalesContext);
 
   useEffect(() => {
     const checkIfEmpty = async (arr, func) => {
@@ -57,18 +62,46 @@ function ConfirmSaleModal({
     checkIfEmpty(saleProductThree, setSaleProductThreeData);
     checkIfEmpty(saleProductFour, setSaleProductFourData);
     checkIfEmpty(saleProductFive, setSaleProductFiveData);
+    sumGT();
   }, []);
+
   const sumGT = () => {
     const sumWithInitial = grandTotalArr.reduce(
       (previousValue, currentValue) => previousValue + currentValue,
       0
     );
-    return <h1>{Math.round(sumWithInitial)}</h1>;
+
+    return (
+      <h1 value={grandTotal} onChange={(e) => setGrandTotal(e.target.value)}>
+        ${Math.round(sumWithInitial)}
+      </h1>
+    );
+  };
+
+  const handleClick = () => {
+    const grandTotal = Math.round(
+      grandTotalArr.reduce(
+        (previousValue, currentValue) => previousValue + currentValue,
+        0
+      )
+    );
+
+    createSale(
+      grandTotal,
+      saleUID,
+      formData,
+      saleProductOneData,
+      saleProductTwoData,
+      saleProductThreeData,
+      saleProductFourData,
+      saleProductFiveData
+    );
   };
 
   if (loading) {
     return <Loading />;
   }
+
   return (
     <div className="h-full w-full flex flex-col space-y-2 ">
       <div className="w-full  flex flex-col xl:flex-row mb-4 ">
@@ -130,15 +163,13 @@ function ConfirmSaleModal({
             <label htmlFor="productOne" className="text-sm font-bold w-fit">
               Grand Total:
             </label>
-            <h1 className="flex items-end justify-end space-x-4 text-lg">
-              ${sumGT()}
-            </h1>
+            <div>{sumGT()}</div>
           </div>
         </div>
       </div>
       <div className="mt-4">
         <button className="w-full bg-green-400 p-2 rounded-lg hover:transition-all hover:scale-[.98] mt-4">
-          <h1>Confirm Sale</h1>
+          <h1 onClick={() => handleClick()}>Confirm Sale</h1>
         </button>
       </div>
     </div>
