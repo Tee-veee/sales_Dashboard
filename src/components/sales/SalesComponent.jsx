@@ -25,7 +25,14 @@ function SalesComponent() {
     getSales();
   }, []);
 
-  const colNames = ["Sales Person", "Client", "Client E-Mail", "Grand Total"];
+  const colNames = [
+    "Sales Person",
+    "Client",
+    "Client E-Mail",
+    "Grand Total",
+    "Sale Date",
+    "Sale ID",
+  ];
 
   return (
     <main className="w-full h-full flex-col ">
@@ -66,7 +73,7 @@ function SalesComponent() {
       <div className="w-full flex px-4">
         <div className="w-full ">
           {salesList ? (
-            <div className="px-2 w-full  xl:block">
+            <div className="px-2 w-full hidden xl:block">
               <Table colNames={colNames} tableData={salesList} />
             </div>
           ) : (

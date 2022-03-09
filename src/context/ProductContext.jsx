@@ -6,6 +6,7 @@ import {
   getDocs,
   collection,
 } from "firebase/firestore";
+import { toast } from "react-toastify";
 import { createContext, useState, useContext } from "react";
 import { db } from "../firebase";
 import CreateModalContext from "./CreateModalContext";
@@ -16,6 +17,14 @@ export const ProductContextProvider = ({ children }) => {
   const { setShowModal } = useContext(CreateModalContext);
 
   const createProduct = async (productData) => {
+    if (
+      productData.productName === "" ||
+      productData.productCostPrice === "" ||
+      productData.productProfitMargain === "" ||
+      productData.productCategory === ""
+    )
+      return toast.error("Fill out required fields");
+
     const productDocRef = doc(db, "products", productData.productName);
     const docSnap = await getDoc(productDocRef);
     if (!docSnap.exists()) {
@@ -24,13 +33,14 @@ export const ProductContextProvider = ({ children }) => {
           ...productData,
           timestamp: serverTimestamp(),
         });
+        toast.success("Product created succesfully");
         getProducts();
         setShowModal(false);
       } catch (error) {
-        console.log(error);
+        toast.error("Could not create product");
       }
     } else {
-      console.log(docSnap);
+      toast.error("Could not access document");
     }
   };
 

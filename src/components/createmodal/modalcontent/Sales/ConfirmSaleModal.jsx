@@ -22,7 +22,6 @@ function ConfirmSaleModal({
   const [saleProductFiveData, setSaleProductFiveData] = useState([]);
   const [grandTotalArr, setGrandTotalArr] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
-  const [test, setTest] = useState(0);
 
   const { createSale } = useContext(SalesContext);
 

@@ -10,8 +10,9 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
+// TOAST
+import { toast } from "react-toastify";
 // STATE
-
 const CategoryContext = createContext();
 
 export const CategoryProvider = ({ children }) => {
@@ -35,11 +36,12 @@ export const CategoryProvider = ({ children }) => {
           categoryName: productCat,
           timestamp: serverTimestamp(),
         });
+        toast.success("Product Category Added");
         setShowProductInput(false);
         setShowProductTooltip(false);
         getProductCat();
       } catch (error) {
-        console.log(error);
+        toast.error("Could not add to database");
       }
     } else {
       console.log(docSnap);

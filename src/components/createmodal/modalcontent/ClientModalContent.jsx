@@ -24,7 +24,10 @@ function ClientModalContent() {
         <input
           type="text"
           name="name"
-          className="text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all"
+          value={formData.clientName}
+          className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+            formData.clientName === "" ? "border-2 border-red-500" : ""
+          }`}
           onChange={(e) =>
             setFormData({ ...formData, clientName: e.target.value })
           }
@@ -37,7 +40,10 @@ function ClientModalContent() {
         <input
           type="text"
           name="address"
-          className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+          value={formData.clientAddress}
+          className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+            formData.clientAddress === "" ? "border-2 border-red-500" : ""
+          }`}
           onChange={(e) =>
             setFormData({ ...formData, clientAddress: e.target.value })
           }
@@ -51,7 +57,10 @@ function ClientModalContent() {
           <input
             type="text"
             name="suburb"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            value={formData.clientSuburb}
+            className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+              formData.clientSuburb === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, clientSuburb: e.target.value })
             }
@@ -64,7 +73,10 @@ function ClientModalContent() {
           <input
             type="text"
             name="postcode"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            value={formData.clientPostcode}
+            className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+              formData.clientPostcode === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, clientPostcode: e.target.value })
             }
@@ -78,8 +90,11 @@ function ClientModalContent() {
           </label>
           <input
             type="text"
+            value={formData.clientEmail}
             name="email"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+              formData.clientEmail === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, clientEmail: e.target.value })
             }
@@ -92,7 +107,10 @@ function ClientModalContent() {
           <input
             type="text"
             name="phone"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            value={formData.clientPhone}
+            className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+              formData.clientPhone === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, clientPhone: e.target.value })
             }
@@ -106,7 +124,10 @@ function ClientModalContent() {
         <select
           type="text"
           name="type"
-          className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+          value={formData.clientType}
+          className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+            formData.clientType === "" ? "border-2 border-red-500" : ""
+          }`}
           onChange={(e) =>
             setFormData({ ...formData, clientType: e.target.value })
           }

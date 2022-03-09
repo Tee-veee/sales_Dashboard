@@ -1,28 +1,53 @@
 // COMPONENTS
 import Card from "../Card";
 import Table from "../table/Table";
+import Loading from "../loading/Loading";
 // ASSETS
 import { AiOutlineDollar, AiOutlineShoppingCart } from "react-icons/ai";
 import { FaBriefcase } from "react-icons/fa";
 import { HiOutlineDocumentReport } from "react-icons/hi";
-import fakeGraph from "../../assets/graphPlaceholder.svg";
-// DATA
-import { tableTwoDataHome, colNamesTwoHome } from "../../data/fakeTableData";
 // REACT
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 // STATE
 import UserContext from "../../context/UserContext";
 import DarkModeContext from "../../context/DarkModeContext";
+import SalesContext from "../../context/SalesContext";
+// RECHARTS
+import React, { PureComponent } from "react";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import ThemeContext from "../../context/ThemeContext";
 
 function HomeComponent() {
-  const { user, getUsers, userListShort } = useContext(UserContext);
+  const { user, getUsers, userListShort, setUser } = useContext(UserContext);
+  const { getTopSales, topSalesList, grandTotalArray } =
+    useContext(SalesContext);
   const { darkMode } = useContext(DarkModeContext);
+  const { accentColor } = useContext(ThemeContext);
 
+  const svgRef = useRef();
   useEffect(() => {
+    getTopSales();
     getUsers(true, false);
   }, []);
 
   const colNamesUsers = ["name", "email"];
+  const colNamesTopSales = [
+    "Sales Person",
+    "Client",
+    "Total",
+    "Date",
+    "SALE ID",
+  ];
 
   return (
     <main className="w-full h-full flex-col">
@@ -50,11 +75,20 @@ function HomeComponent() {
             </section>
             <section className="w-full md:w-6/12 xl:w-7/12 p-2 max-h-[500px] ">
               <div className="w-full h-full ">
-                <img
+                {grandTotalArray && (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart width={500} height={300} data={grandTotalArray}>
+                      <XAxis dataKey="salesPerson" />
+                      <YAxis />
+                      <Bar dataKey="grandTotal" fill={accentColor} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                )}
+                {/* <img
                   src={fakeGraph}
                   className="w-auto h-auto lg:w-[900px] lg:h-[400px] mx-auto"
                   alt="Fake Graph"
-                />
+                /> */}
               </div>
             </section>
           </section>
@@ -69,16 +103,20 @@ function HomeComponent() {
               </h1>
               <Table colNames={colNamesUsers} tableData={userListShort} />
             </div>
-            <div className="p-2 w-full hidden xl:block">
-              <h1
-                className={`mb-2 text-2xl ${
-                  darkMode ? "text-white" : "text-stone-700"
-                }`}
-              >
-                Top Sales
-              </h1>
-              <Table colNames={colNamesTwoHome} tableData={tableTwoDataHome} />
-            </div>
+            {topSalesList ? (
+              <div className="p-2 w-full hidden xl:block">
+                <h1
+                  className={`mb-2 text-2xl ${
+                    darkMode ? "text-white" : "text-stone-700"
+                  }`}
+                >
+                  Top Sales
+                </h1>
+                <Table colNames={colNamesTopSales} tableData={topSalesList} />
+              </div>
+            ) : (
+              <Loading />
+            )}
           </section>
         </>
       )}

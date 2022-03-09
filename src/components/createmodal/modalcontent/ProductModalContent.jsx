@@ -28,7 +28,10 @@ function ProductModalContent() {
         <input
           type="text"
           name="name"
-          className="text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all"
+          value={formData.productName}
+          className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+            formData.productName === "" ? "border-2 border-red-500" : ""
+          }`}
           onChange={(e) =>
             setFormData({ ...formData, productName: e.target.value })
           }
@@ -43,7 +46,10 @@ function ProductModalContent() {
           <input
             type="text"
             name="purchasePrice"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            value={formData.productCostPrice}
+            className={`text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all ${
+              formData.productCostPrice === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, productCostPrice: e.target.value })
             }
@@ -56,7 +62,11 @@ function ProductModalContent() {
           <input
             type="text"
             name="profitMargain"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            className={`text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all ${
+              formData.productProfitMargain === ""
+                ? "border-2 border-red-500"
+                : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, productProfitMargain: e.target.value })
             }
@@ -74,7 +84,10 @@ function ProductModalContent() {
           <select
             type="text"
             name="category"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            value={formData.productCategory}
+            className={`text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all ${
+              formData.productCategory === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, productCategory: e.target.value })
             }

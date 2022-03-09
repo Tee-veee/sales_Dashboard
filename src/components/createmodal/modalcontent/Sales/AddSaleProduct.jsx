@@ -30,7 +30,9 @@ function AddSaleProduct({
           type="text"
           name="salesProduct1"
           value={formValue}
-          className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all w-9/12 mr-6"
+          className={`text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all w-9/12 mr-6 ${
+            formValue === "" ? "border-2 border-red-500" : ""
+          }`}
           onChange={(e) => handleAddProduct(productNumber, e)}
         >
           <option></option>
@@ -43,9 +45,11 @@ function AddSaleProduct({
 
         <input
           type="number"
-          min="0"
+          min="1"
           value={formValueNum}
-          className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all w-3/12"
+          className={`text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all w-3/12 ${
+            formValueNum === "" ? "border-2 border-red-500" : ""
+          }`}
           onChange={(e) => handleChangeQuantity(productNumber, e)}
         />
       </div>

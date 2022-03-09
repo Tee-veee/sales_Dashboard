@@ -9,7 +9,7 @@ import {
 import { createContext, useState, useContext } from "react";
 import { db } from "../firebase";
 import CreateModalContext from "./CreateModalContext";
-
+import { toast } from "react-toastify";
 const ClientContext = createContext();
 
 export const ClientContextProvider = ({ children }) => {
@@ -18,6 +18,17 @@ export const ClientContextProvider = ({ children }) => {
   const { setShowModal } = useContext(CreateModalContext);
 
   const createClient = async (clientData) => {
+    if (
+      clientData.clientName === "" ||
+      clientData.clientAddress === "" ||
+      clientData.clientSuburb === "" ||
+      clientData.clientPostcode === "" ||
+      clientData.clientEmail === "" ||
+      clientData.clientPhone === "" ||
+      clientData.clientType === ""
+    )
+      return toast.error("Fill out required fields");
+
     const clientDocRef = doc(db, "clients", clientData.clientEmail);
     const docSnap = await getDoc(clientDocRef);
     if (!docSnap.exists()) {
@@ -26,13 +37,14 @@ export const ClientContextProvider = ({ children }) => {
           ...clientData,
           timestamp: serverTimestamp(),
         });
-        getClients();
+        toast.success("Client added succesfully");
+        getClients(true, false);
         setShowModal(false);
       } catch (error) {
-        console.log(error);
+        toast.error("Could not add client");
       }
     } else {
-      console.log(docSnap);
+      toast.error("Could not access document");
     }
   };
 

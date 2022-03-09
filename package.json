@@ -13,6 +13,8 @@
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "react-toastify": "^8.2.0",
+    "recharts": "^2.1.9",
     "svg-loaders-react": "^2.2.1",
     "util": "^0.12.4",
     "uuid": "^8.3.2",

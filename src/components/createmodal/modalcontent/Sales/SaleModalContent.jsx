@@ -10,6 +10,10 @@ import { BsTruck } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import AddSaleProduct from "./AddSaleProduct";
 import ConfirmSaleModal from "./ConfirmSaleModal";
+// TOAST
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function SaleModalContent() {
   const [showTooltip, setShowTooltip] = useState(false); // 1
   const [showDeliveryTooltip, setShowDeliveryTooltip] = useState(false); // 2
@@ -178,6 +182,9 @@ function SaleModalContent() {
       ...formData,
       salesClient: saleClient,
       salesClientEmail: finalSaleClient[0].clientEmail,
+      salesClientAddress: finalSaleClient[0].clientAddress,
+      salesClientPostcode: finalSaleClient[0].clientSuburb,
+      salesClientSuburb: finalSaleClient[0].clientPostcode,
     });
 
     setSaleClientData(finalSaleClient[0]);
@@ -208,6 +215,19 @@ function SaleModalContent() {
       });
     }
   };
+
+  const handleConfirmClick = () => {
+    if (
+      formData.salesClientclient === "" ||
+      formData.salesClientAddress === "" ||
+      formData.salesClientSuburb === "" ||
+      formData.salesClientPostcode === "" ||
+      saleProductOne.productName === ""
+    ) {
+      return toast.error("Fill out required fields!");
+    }
+    setShowConfirm(true);
+  };
   return (
     <main className="xl:w-[840px] w-[300px] lg:w-[560px] flex flex-col space-y-6 h-fit    rounded-lg">
       <h1 className="text-2xl lg:text-5xl">
@@ -228,7 +248,11 @@ function SaleModalContent() {
                     type="text"
                     name="clientName"
                     value={formData.salesClient}
-                    className="text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all disabled:bg-gray-200"
+                    className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all disabled:bg-gray-200 ${
+                      formData.salesClient === ""
+                        ? "border-2 border-red-500"
+                        : ""
+                    }`}
                     onChange={(e) => handleClientChange(e)}
                   >
                     <option></option>
@@ -250,7 +274,11 @@ function SaleModalContent() {
                     name="clientEmail"
                     value={formData.salesClientEmail}
                     disabled
-                    className="text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all disabled:bg-gray-200"
+                    className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all disabled:bg-gray-200 ${
+                      formData.salesClientEmail === ""
+                        ? "border-2 border-red-500"
+                        : ""
+                    }`}
                   />
                 </div>
               </div>
@@ -265,7 +293,12 @@ function SaleModalContent() {
                       <input
                         type="text"
                         name="deliveryAddress"
-                        className="text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all xl:w-9/12"
+                        className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all xl:w-9/12 ${
+                          formData.salesClientAddress === ""
+                            ? "border-2 border-red-500"
+                            : ""
+                        }`}
+                        value={formData.salesClientAddress}
                         onChange={(e) =>
                           setFormData({
                             ...formData,
@@ -300,7 +333,12 @@ function SaleModalContent() {
                       <input
                         type="text"
                         name="suburb"
-                        className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+                        className={`text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all ${
+                          formData.salesClientSuburb === ""
+                            ? "border-2 border-red-500"
+                            : ""
+                        }`}
+                        value={formData.salesClientSuburb}
                         onChange={(e) =>
                           setFormData({
                             ...formData,
@@ -316,7 +354,12 @@ function SaleModalContent() {
                       <input
                         type="text"
                         name="deliveryPostcode"
-                        className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+                        className={`text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all ${
+                          formData.salesClientPostcode === ""
+                            ? "border-2 border-red-500"
+                            : ""
+                        }`}
+                        value={formData.salesClientPostcode}
                         onChange={(e) =>
                           setFormData({
                             ...formData,
@@ -526,7 +569,7 @@ function SaleModalContent() {
           <div>
             <button
               className="px-4 py-2 border-2 rounded-lg bg-green-400 text-stone-800 flex items-center space-x-2 hover:scale-95 hover:transition-all w-full justify-center"
-              onClick={() => setShowConfirm(true)}
+              onClick={() => handleConfirmClick()}
             >
               <h1>Confirm Sale</h1>
             </button>

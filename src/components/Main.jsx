@@ -1,7 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import DarkModeContext from "../context/DarkModeContext";
+import SalesContext from "../context/SalesContext";
 // STATE
 import SidebarContext from "../context/SidebarContext";
+import UserContext from "../context/UserContext";
 import ClientsComponent from "./clients/ClientsComponent";
 // COMPONENTS
 import HomeComponent from "./home/HomeComponent";
@@ -11,8 +13,9 @@ import SalesComponent from "./sales/SalesComponent";
 import SuppliersComponent from "./suppliers/SuppliersComponent";
 
 function Main() {
-  const { selected } = useContext(SidebarContext);
+  const { selected, setSelected } = useContext(SidebarContext);
   const { darkMode } = useContext(DarkModeContext);
+
   return (
     <main
       className={`min-h-screen h-fit pl-[60px] xl:pl-[260px] pt-[60px]  ${

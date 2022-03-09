@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import CreateModalContext from "./CreateModalContext";
 import SidebarContext from "./SidebarContext";
+import { toast } from "react-toastify";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -26,8 +27,6 @@ export const UserProvider = ({ children }) => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    console.log(user);
-
     const currentUser = {
       name: user.displayName,
       email: user.email,
@@ -36,6 +35,7 @@ export const UserProvider = ({ children }) => {
     };
 
     setUser(currentUser);
+    sessionStorage.setItem("user", JSON.stringify(currentUser));
 
     const usersQuery = query(collection(db, "users"));
     const usersSnapshot = await getDocs(usersQuery);
@@ -65,7 +65,9 @@ export const UserProvider = ({ children }) => {
       if (users.includes(checkUserUID)) {
         const docRef = doc(db, "users", checkUserUID);
         const docSnap = await getDoc(docRef);
-        return setUser(docSnap.data());
+        toast.success("Credentials gathered succesfully");
+        setUser(docSnap.data());
+        return;
       } else {
         // CREATE USER
         await setDoc(doc(db, "users", currentUser.uid), {
@@ -74,8 +76,10 @@ export const UserProvider = ({ children }) => {
           image: currentUser.image,
           uid: currentUser.uid,
         });
+        toast.success("Credentials stored succesfully");
       }
     }
+
     getUsers(true, false);
   };
 
@@ -156,6 +160,7 @@ export const UserProvider = ({ children }) => {
         setUserListShort,
         getUsers,
         updateUser,
+        setUser,
       }}
     >
       {children}

@@ -18,6 +18,7 @@ function ProductCategory() {
     setShowProductInput(!showProductInput);
     setShowProductTooltip(false);
   };
+
   return (
     <div className="w-full flex justify-end ">
       {!showProductInput && (

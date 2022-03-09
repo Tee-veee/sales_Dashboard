@@ -7,6 +7,7 @@ import {
   collection,
 } from "firebase/firestore";
 import { createContext, useState, useContext } from "react";
+import { toast } from "react-toastify";
 import { db } from "../firebase";
 import CreateModalContext from "./CreateModalContext";
 
@@ -17,6 +18,17 @@ export const SupplierContextProvider = ({ children }) => {
   const { setShowModal } = useContext(CreateModalContext);
 
   const createSupplier = async (supplierData) => {
+    if (
+      supplierData.supplierName === "" ||
+      supplierData.supplierAddress === "" ||
+      supplierData.supplierSuburb === "" ||
+      supplierData.supplierPostcode === "" ||
+      supplierData.supplierEmail === "" ||
+      supplierData.supplierPhone === "" ||
+      supplierData.supplierType === ""
+    )
+      return toast.error("Fill out required fields");
+
     const supplierDocRef = doc(db, "suppliers", supplierData.supplierName);
     const docSnap = await getDoc(supplierDocRef);
     if (!docSnap.exists()) {
@@ -25,13 +37,14 @@ export const SupplierContextProvider = ({ children }) => {
           ...supplierData,
           timestamp: serverTimestamp(),
         });
+        toast.success("Supplier created succesfully");
         getSuppliers();
         setShowModal(false);
       } catch (error) {
-        console.log(error);
+        toast.error("Could not create supplier");
       }
     } else {
-      console.log(docSnap);
+      toast.error("Could not access document");
     }
   };
 

@@ -14,12 +14,22 @@ import UserContext from "../../context/UserContext";
 import Table from "../table/Table";
 import { colNamesTwoHome, tableTwoDataHome } from "../../data/fakeTableData";
 import SalesContext from "../../context/SalesContext";
+import Loading from "../loading/Loading";
 
 function ProfileComponent() {
   const { setShowModal } = useContext(CreateModalContext);
   const { darkMode } = useContext(DarkModeContext);
   const { user } = useContext(UserContext);
-  const { getUserSales } = useContext(SalesContext);
+  const { getUserSales, userSalesList } = useContext(SalesContext);
+
+  const colNames = [
+    "Client",
+    "Client Email",
+    "Client Suburb",
+    "Grand Total",
+    "Sale Date",
+    "Sale ID",
+  ];
 
   useEffect(() => {
     getUserSales(user);
@@ -81,16 +91,20 @@ function ProfileComponent() {
         </div>
       </header>
       <section className="w-full  md:space-x-4 lg:mt-10 flex flex-col md:flex-row">
-        <div className=" w-full ">
-          <h1
-            className={`mb-2 text-2xl ${
-              darkMode ? "text-white" : "text-stone-700"
-            }`}
-          >
-            My Sales
-          </h1>
-          <Table colNames={colNamesTwoHome} tableData={tableTwoDataHome} />
-        </div>
+        {userSalesList ? (
+          <div className=" w-full ">
+            <h1
+              className={`mb-2 text-2xl ${
+                darkMode ? "text-white" : "text-stone-700"
+              }`}
+            >
+              My Sales
+            </h1>
+            <Table colNames={colNames} tableData={userSalesList} />
+          </div>
+        ) : (
+          <Loading />
+        )}
       </section>
     </main>
   );

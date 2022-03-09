@@ -32,7 +32,10 @@ function SupplierModalContent() {
         <input
           type="text"
           name="name"
-          className="text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all"
+          value={formData.supplierName}
+          className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+            formData.supplierName === "" ? "border-2 border-red-500" : ""
+          }`}
           onChange={(e) =>
             setFormData({ ...formData, supplierName: e.target.value })
           }
@@ -45,7 +48,10 @@ function SupplierModalContent() {
         <input
           type="text"
           name="address"
-          className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+          className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+            formData.supplierAddress === "" ? "border-2 border-red-500" : ""
+          }`}
+          value={formData.supplierAddress}
           onChange={(e) =>
             setFormData({ ...formData, supplierAddress: e.target.value })
           }
@@ -59,7 +65,10 @@ function SupplierModalContent() {
           <input
             type="text"
             name="suburb"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            value={formData.supplierSuburb}
+            className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+              formData.supplierSuburb === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, supplierSuburb: e.target.value })
             }
@@ -72,7 +81,10 @@ function SupplierModalContent() {
           <input
             type="text"
             name="postcode"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            value={formData.supplierPostcode}
+            className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+              formData.supplierPostcode === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, supplierPostcode: e.target.value })
             }
@@ -87,7 +99,10 @@ function SupplierModalContent() {
           <input
             type="text"
             name="email"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            value={formData.supplierEmail}
+            className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+              formData.supplierEmail === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, supplierEmail: e.target.value })
             }
@@ -100,7 +115,10 @@ function SupplierModalContent() {
           <input
             type="text"
             name="phone"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            value={formData.supplierPhone}
+            className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+              formData.supplierPhone === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({ ...formData, supplierPhone: e.target.value })
             }
@@ -118,7 +136,10 @@ function SupplierModalContent() {
           <select
             type="text"
             name="category"
-            className="text-lg border-2 border-stone-500 p-1 outline-none focus:shadow-lg focus:transition-all"
+            value={formData.supplierCategory}
+            className={`text-lg border-2 p-1 border-stone-500 outline-none focus:shadow-lg focus:transition-all ${
+              formData.supplierCategory === "" ? "border-2 border-red-500" : ""
+            }`}
             onChange={(e) =>
               setFormData({
                 ...formData,
