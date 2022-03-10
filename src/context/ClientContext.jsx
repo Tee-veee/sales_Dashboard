@@ -103,7 +103,13 @@ export const ClientContextProvider = ({ children }) => {
 
   return (
     <ClientContext.Provider
-      value={{ createClient, getClients, clientListShort, clientListLong }}
+      value={{
+        createClient,
+        getClients,
+        clientListShort,
+        clientListLong,
+        setClientListShort,
+      }}
     >
       {children}
     </ClientContext.Provider>

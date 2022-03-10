@@ -6,7 +6,7 @@ import { AiOutlineDollar } from "react-icons/ai";
 import { FaBriefcase } from "react-icons/fa";
 import fakeGraph2 from "../../assets/graphPlaceholder2.svg";
 // REACT
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 // STATE
 import UserContext from "../../context/UserContext";
 import DarkModeContext from "../../context/DarkModeContext";
@@ -15,15 +15,89 @@ import { MdAdd } from "react-icons/md";
 import CreateModalContext from "../../context/CreateModalContext";
 import SalesContext from "../../context/SalesContext";
 import Loading from "../loading/Loading";
+import ThemeContext from "../../context/ThemeContext";
 
 function SalesComponent() {
   const { darkMode } = useContext(DarkModeContext);
   const { setShowModal } = useContext(CreateModalContext);
-  const { salesList, getSales } = useContext(SalesContext);
+  const { salesList, getSales, setSalesList } = useContext(SalesContext);
+  const { accentColor } = useContext(ThemeContext);
+  const [showFilter, setShowFilter] = useState(false);
+  const [sortConditions, setSortConditions] = useState({
+    salesSort: false,
+    clientSort: false,
+    grandSort: false,
+    dateSort: false,
+  });
 
   useEffect(() => {
     getSales();
   }, []);
+
+  // HANDLES FILTERING
+  const filterSales = (type) => {
+    const setList = (sortedList, a, b, c, d) => {
+      setSalesList([]);
+      setTimeout(() => {
+        setSalesList(sortedList);
+      }, 100);
+      setSortConditions({
+        salesSort: a,
+        clientSort: b,
+        grandSort: c,
+        dateSort: d,
+      });
+    };
+
+    if (type === "salesPerson") {
+      const compareSalesPerson = (a, b) => {
+        const nameArrA = a.salesPerson.split(" ");
+        const nameArrB = b.salesPerson.split(" ");
+
+        if (nameArrA[0] < nameArrB[0]) {
+          return -1;
+        }
+        if (nameArrA[0] > nameArrB[0]) {
+          return 1;
+        }
+        return 0;
+      };
+      const sortedList = salesList.sort(compareSalesPerson);
+      if (sortConditions.salesSort === true) return;
+      setList(sortedList, true, false, false, false);
+    } else if (type === "clientName") {
+      const compareClient = (a, b) => {
+        const nameArrA = a.salesClient.split(" ");
+        const nameArrB = b.salesClient.split(" ");
+
+        if (nameArrA[0] < nameArrB[0]) {
+          return -1;
+        }
+        if (nameArrA[0] > nameArrB[0]) {
+          return 1;
+        }
+        return 0;
+      };
+      const sortedList = salesList.sort(compareClient);
+      if (sortConditions.clientSort === true) return;
+      setList(sortedList, false, true, false, false);
+    } else if (type === "grandTotal") {
+      const sortedList = salesList.sort((a, b) => {
+        return b.grandTotal - a.grandTotal;
+      });
+      if (sortConditions.grandSort === true) return;
+      setList(sortedList, false, false, true, false);
+    } else if (type === "saleDate") {
+      const sortedList = salesList.sort((a, b) => {
+        const date1 = new Date(a.date);
+        const date2 = new Date(b.date);
+
+        return date2 - date1;
+      });
+      if (sortConditions.dateSort === true) return;
+      setList(sortedList, false, false, false, true);
+    }
+  };
 
   const colNames = [
     "Sales Person",
@@ -58,10 +132,72 @@ function SalesComponent() {
           className={`px-4 py-2 border-2 rounded-lg flex items-center space-x-2 hover:scale-95 hover:transition-all ${
             darkMode ? "text-white border-white" : "text-stone-700 border-black"
           }`}
+          onClick={() => setShowFilter(!showFilter)}
         >
           <BsFilterRight className="text-2xl" />
           <h1>Filter</h1>
         </button>
+        {showFilter && (
+          <div className="lg:flex hidden items-center text-white lg:space-x-8">
+            <button
+              className={`px-4 py-2 border-2 rounded-lg flex items-center space-x-2 hover:scale-95 hover:transition-all ${
+                darkMode
+                  ? "text-white border-white"
+                  : "text-stone-700 border-black"
+              } ${
+                sortConditions.salesSort === true
+                  ? `bg-${accentColor}-500 text-white`
+                  : ""
+              }`}
+              onClick={() => filterSales("salesPerson")}
+            >
+              Sales Person
+            </button>
+            <button
+              className={`px-4 py-2 border-2 rounded-lg flex items-center space-x-2 hover:scale-95 hover:transition-all ${
+                darkMode
+                  ? "text-white border-white"
+                  : "text-stone-700 border-black"
+              } ${
+                sortConditions.clientSort === true
+                  ? `bg-${accentColor}-500 text-white`
+                  : ""
+              }`}
+              onClick={() => filterSales("clientName")}
+            >
+              Client Name
+            </button>
+            <button
+              className={`px-4 py-2 border-2 rounded-lg flex items-center space-x-2 hover:scale-95 hover:transition-all ${
+                darkMode
+                  ? "text-white border-white"
+                  : "text-stone-700 border-black"
+              } ${
+                sortConditions.grandSort === true
+                  ? `bg-${accentColor}-500 text-white`
+                  : ""
+              }`}
+              onClick={() => filterSales("grandTotal")}
+            >
+              Grand Total
+            </button>
+            <button
+              className={`px-4 py-2 border-2 rounded-lg flex items-center space-x-2 hover:scale-95 hover:transition-all ${
+                darkMode
+                  ? "text-white border-white"
+                  : "text-stone-700 border-black"
+              } ${
+                sortConditions.dateSort === true
+                  ? `bg-${accentColor}-500 text-white`
+                  : ""
+              }`}
+              onClick={() => filterSales("saleDate")}
+            >
+              Sale Date
+            </button>
+          </div>
+        )}
+
         <button
           className="px-4 py-2 rounded-lg bg-green-400 text-stone-800 flex items-center space-x-2 hover:scale-95 hover:transition-all"
           onClick={() => setShowModal(true)}
@@ -70,6 +206,7 @@ function SalesComponent() {
           <h1>New Sale</h1>
         </button>
       </div>
+
       <div className="w-full flex px-4">
         <div className="w-full ">
           {salesList ? (

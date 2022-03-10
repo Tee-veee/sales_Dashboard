@@ -92,13 +92,15 @@ export const SalesContextProvider = ({ children }) => {
       const { salesPerson, salesClient, salesClientEmail, grandTotal } =
         doc.data();
 
+      const docID = doc.id.slice(0, 8);
+
       const salesObj = {
         salesPerson,
         salesClient,
         salesClientEmail,
         grandTotal,
         date: handleDate(doc.data()),
-        id: doc.id,
+        id: docID,
       };
       testArr.push(salesObj);
     });
@@ -122,16 +124,17 @@ export const SalesContextProvider = ({ children }) => {
 
     docSnap.forEach((doc) => {
       if (user.email === doc.data().salesPersonEmail) {
-        const { salesClient, salesClientEmail, salesClientSuburb, grandTotal } =
-          doc.data();
+        const { salesClient, salesClientEmail, grandTotal } = doc.data();
+
+        const docID = doc.id.slice(0, 8);
 
         const userSalesObj = {
           salesClient,
           salesClientEmail,
-          salesClientSuburb,
+
           grandTotal,
           date: handleDate(doc.data()),
-          id: doc.id,
+          id: docID,
         };
 
         testArr.push(userSalesObj);
@@ -156,13 +159,13 @@ export const SalesContextProvider = ({ children }) => {
 
     docSnap.forEach((doc) => {
       const { salesPerson, salesClient, grandTotal } = doc.data();
-
+      const docID = doc.id.slice(0, 8);
       const salesObj = {
         salesPerson,
         salesClient,
         grandTotal,
         date: handleDate(doc.data()),
-        id: doc.id,
+        id: docID,
       };
 
       const grandTotalObj = {
@@ -197,7 +200,9 @@ export const SalesContextProvider = ({ children }) => {
         getSales,
         getUserSales,
         salesList,
+        setSalesList,
         userSalesList,
+        setUserSalesList,
         getTopSales,
         topSalesList,
         grandTotalArray,

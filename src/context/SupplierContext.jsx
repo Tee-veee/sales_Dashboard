@@ -79,7 +79,7 @@ export const SupplierContextProvider = ({ children }) => {
 
   return (
     <SupplierContext.Provider
-      value={{ createSupplier, getSuppliers, supplierList }}
+      value={{ createSupplier, getSuppliers, supplierList, setSupplierList }}
     >
       {children}
     </SupplierContext.Provider>
