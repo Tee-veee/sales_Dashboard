@@ -12,20 +12,9 @@ import { useContext, useEffect, useRef } from "react";
 import UserContext from "../../context/UserContext";
 import DarkModeContext from "../../context/DarkModeContext";
 import SalesContext from "../../context/SalesContext";
-// RECHARTS
-import React, { PureComponent } from "react";
-import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 import ThemeContext from "../../context/ThemeContext";
+// RECHARTS
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
 
 function HomeComponent() {
   const { user, getUsers, userListShort, setUser } = useContext(UserContext);
@@ -84,11 +73,6 @@ function HomeComponent() {
                     </BarChart>
                   </ResponsiveContainer>
                 )}
-                {/* <img
-                  src={fakeGraph}
-                  className="w-auto h-auto lg:w-[900px] lg:h-[400px] mx-auto"
-                  alt="Fake Graph"
-                /> */}
               </div>
             </section>
           </section>

@@ -165,7 +165,7 @@ function SalesComponent() {
               }`}
               onClick={() => filterSales("clientName")}
             >
-              Client Name
+              Client
             </button>
             <button
               className={`px-4 py-2 border-2 rounded-lg flex items-center space-x-2 hover:scale-95 hover:transition-all ${
@@ -179,7 +179,7 @@ function SalesComponent() {
               }`}
               onClick={() => filterSales("grandTotal")}
             >
-              Grand Total
+              Total
             </button>
             <button
               className={`px-4 py-2 border-2 rounded-lg flex items-center space-x-2 hover:scale-95 hover:transition-all ${
@@ -193,7 +193,7 @@ function SalesComponent() {
               }`}
               onClick={() => filterSales("saleDate")}
             >
-              Sale Date
+              Date
             </button>
           </div>
         )}

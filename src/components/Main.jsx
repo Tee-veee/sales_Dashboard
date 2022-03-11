@@ -4,6 +4,7 @@ import SalesContext from "../context/SalesContext";
 // STATE
 import SidebarContext from "../context/SidebarContext";
 import UserContext from "../context/UserContext";
+import AnalyticsComponent from "./analytics/AnalyticsComponent";
 import ClientsComponent from "./clients/ClientsComponent";
 // COMPONENTS
 import HomeComponent from "./home/HomeComponent";
@@ -13,7 +14,7 @@ import SalesComponent from "./sales/SalesComponent";
 import SuppliersComponent from "./suppliers/SuppliersComponent";
 
 function Main() {
-  const { selected, setSelected } = useContext(SidebarContext);
+  const { selected } = useContext(SidebarContext);
   const { darkMode } = useContext(DarkModeContext);
 
   return (
@@ -27,6 +28,7 @@ function Main() {
       {selected === "Clients" && <ClientsComponent />}
       {selected === "Sales" && <SalesComponent />}
       {selected === "Suppliers" && <SuppliersComponent />}
+      {selected === "Analytics" && <AnalyticsComponent />}
       {selected === "My Profile" && <ProfileComponent />}
     </main>
   );

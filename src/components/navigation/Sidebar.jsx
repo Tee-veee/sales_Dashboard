@@ -4,6 +4,7 @@ import {
   AiOutlineShoppingCart,
   AiOutlineInbox,
   AiOutlineUser,
+  AiOutlinePieChart,
 } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import { SiSimpleanalytics } from "react-icons/si";
@@ -46,6 +47,10 @@ function Sidebar() {
     {
       title: "Suppliers",
       icon: <SiSimpleanalytics />,
+    },
+    {
+      title: "Analytics",
+      icon: <AiOutlinePieChart />,
     },
     {
       title: "My Profile",
