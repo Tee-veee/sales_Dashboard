@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
 // CONTEXT PROVIDERS
 import { DarkModeProvider } from "./context/DarkModeContext";
 import { ThemeProvider } from "./context/ThemeContext";

@@ -202,7 +202,7 @@ function SuppliersComponent() {
                     : "text-stone-700 border-black"
                 } ${
                   sortConditions.nameSort === true
-                    ? `bg-${accentColor}-500`
+                    ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
                 onClick={() => filterSuppliers("supplierName")}
@@ -216,7 +216,7 @@ function SuppliersComponent() {
                     : "text-stone-700 border-black"
                 } ${
                   sortConditions.emailSort === true
-                    ? `bg-${accentColor}-500`
+                    ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
                 onClick={() => filterSuppliers("supplierEmail")}
@@ -230,7 +230,7 @@ function SuppliersComponent() {
                     : "text-stone-700 border-black"
                 } ${
                   sortConditions.phoneSort === true
-                    ? `bg-${accentColor}-500`
+                    ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
                 onClick={() => filterSuppliers("supplierPhone")}
@@ -244,7 +244,7 @@ function SuppliersComponent() {
                     : "text-stone-700 border-black"
                 } ${
                   sortConditions.postSort === true
-                    ? `bg-${accentColor}-500`
+                    ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
                 onClick={() => filterSuppliers("Postcode")}
@@ -257,7 +257,9 @@ function SuppliersComponent() {
                     ? "text-white border-white"
                     : "text-stone-700 border-black"
                 } ${
-                  sortConditions.catSort === true ? `bg-${accentColor}-500` : ""
+                  sortConditions.catSort === true
+                    ? `bg-${accentColor}-500 text-white`
+                    : ""
                 }`}
                 onClick={() => filterSuppliers("Category")}
               >

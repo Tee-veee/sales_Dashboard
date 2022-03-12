@@ -181,7 +181,9 @@ function ProfileComponent() {
                   ? "text-white border-white"
                   : "text-stone-700 border-black"
               } ${
-                sortConditions.nameSort === true ? `bg-${accentColor}-500` : ""
+                sortConditions.nameSort === true
+                  ? `bg-${accentColor}-500 text-white`
+                  : ""
               }`}
               onClick={() => filterSales("clientName")}
             >
@@ -193,7 +195,9 @@ function ProfileComponent() {
                   ? "text-white border-white"
                   : "text-stone-700 border-black"
               } ${
-                sortConditions.emailSort === true ? `bg-${accentColor}-500` : ""
+                sortConditions.emailSort === true
+                  ? `bg-${accentColor}-500 text-white`
+                  : ""
               }`}
               onClick={() => filterSales("clientEmail")}
             >
@@ -205,7 +209,9 @@ function ProfileComponent() {
                   ? "text-white border-white"
                   : "text-stone-700 border-black"
               } ${
-                sortConditions.grandSort === true ? `bg-${accentColor}-500` : ""
+                sortConditions.grandSort === true
+                  ? `bg-${accentColor}-500 text-white`
+                  : ""
               }`}
               onClick={() => filterSales("grandTotal")}
             >
@@ -217,7 +223,9 @@ function ProfileComponent() {
                   ? "text-white border-white"
                   : "text-stone-700 border-black"
               } ${
-                sortConditions.dateSort === true ? `bg-${accentColor}-500` : ""
+                sortConditions.dateSort === true
+                  ? `bg-${accentColor}-500 text-white`
+                  : ""
               }`}
               onClick={() => filterSales("saleDate")}
             >
@@ -229,9 +237,9 @@ function ProfileComponent() {
       </div>
       <section className="w-full  md:space-x-4 lg:mt-4 flex flex-col md:flex-row">
         {userSalesList ? (
-          <div className=" w-full ">
+          <div className=" w-full hidden lg:block">
             <h1
-              className={`mb-2 text-2xl ${
+              className={`mb-4 text-2xl ${
                 darkMode ? "text-white" : "text-stone-700"
               }`}
             >

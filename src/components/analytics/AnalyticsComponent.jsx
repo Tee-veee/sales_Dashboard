@@ -48,7 +48,7 @@ function AnalyticsComponent() {
       <section className="w-full px-4  flex flex-col md:flex-row ">
         <section className="p-2 mt-2 w-full   flex flex-col space-y-2 md:space-y-2  ">
           <div className="flex flex-col md:flex-row md:space-y-0 space-y-2 h-full mt-20 ">
-            <div className="w-[500px] h-[300px] flex-col items-center text-center">
+            <div className="w-[300px] h-[300px] xl:w-[500px] xl:h-[300px] flex-col items-center text-center">
               <h1
                 className={`text-3xl  ${
                   darkMode ? " text-white" : "text-stone-700"
@@ -79,7 +79,7 @@ function AnalyticsComponent() {
                 </ResponsiveContainer>
               )}
             </div>
-            <div className="w-[500px] h-[300px] flex-col items-center text-center ">
+            <div className="w-[300px] h-[300px] xl:w-[500px] xl:h-[300px] flex-col items-center text-center ">
               <h1
                 className={`text-3xl  ${
                   darkMode ? " text-white" : "text-stone-700"
@@ -126,7 +126,7 @@ function AnalyticsComponent() {
                     (total units)
                   </span>
                 </h1>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="80%" height="100%">
                   <BarChart width={500} height={300} data={analyticBarChartPN}>
                     <XAxis dataKey="name" />
                     <YAxis />
