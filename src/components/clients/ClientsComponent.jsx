@@ -15,6 +15,7 @@ import DarkModeContext from "../../context/DarkModeContext";
 import ClientContext from "../../context/ClientContext";
 import Loading from "../loading/Loading";
 import ThemeContext from "../../context/ThemeContext";
+import { filterClients } from "../../functions/filter/filterTables";
 
 function ClientsComponent() {
   const { setShowModal } = useContext(CreateModalContext);
@@ -31,74 +32,6 @@ function ClientsComponent() {
   });
 
   const colNames = ["Name", "Email", "Postcode", "Type"];
-
-  const filterClients = (type) => {
-    const setList = (sortedList, a, b, c, d) => {
-      setClientListShort([]);
-      setTimeout(() => {
-        setClientListShort(sortedList);
-      }, 100);
-      setSortConditions({
-        nameSort: a,
-        emailSort: b,
-        postSort: c,
-        typeSort: d,
-      });
-    };
-
-    if (type === "clientName") {
-      const compareClientName = (a, b) => {
-        const nameArrA = a.clientName.split(" ");
-        const nameArrB = b.clientName.split(" ");
-        if (nameArrA[0] < nameArrB[0]) {
-          return -1;
-        }
-        if (nameArrA[0] > nameArrB[0]) {
-          return 1;
-        }
-        return 0;
-      };
-
-      const sortedList = clientListShort.sort(compareClientName);
-      if (sortConditions.nameSort === true) return;
-      setList(sortedList, true, false, false, false);
-    } else if (type === "clientEmail") {
-      const compareEmail = (a, b) => {
-        const nameArrA = a.clientEmail.split(" ");
-        const nameArrB = b.clientEmail.split(" ");
-
-        if (nameArrA[0] < nameArrB[0]) {
-          return -1;
-        }
-        if (nameArrA[0] > nameArrB[0]) {
-          return 1;
-        }
-        return 0;
-      };
-      const sortedList = clientListShort.sort(compareEmail);
-      if (sortConditions.emailSort === true) return;
-      setList(sortedList, false, true, false, false);
-    } else if (type === "Postcode") {
-      const sortedList = clientListShort.sort((a, b) => {
-        return b.clientPostcode - a.clientPostcode;
-      });
-      if (sortConditions.postSort === true) return;
-      setList(sortedList, false, false, true, false);
-    } else if (type === "clientType") {
-      const sortedList = clientListShort.sort((a, b) => {
-        if (a.clientType < b.clientType) {
-          return -1;
-        }
-        if (a.clientType > b.clientType) {
-          return 1;
-        }
-        return 0;
-      });
-      if (sortConditions.typeSort === true) return;
-
-      setList(sortedList, false, false, false, true);
-    }
-  };
 
   useEffect(() => {
     getClients(true, false);
@@ -148,7 +81,15 @@ function ClientsComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterClients("clientName")}
+                onClick={() =>
+                  filterClients(
+                    "clientName",
+                    sortConditions,
+                    setSortConditions,
+                    clientListShort,
+                    setClientListShort
+                  )
+                }
               >
                 Name
               </button>
@@ -162,7 +103,15 @@ function ClientsComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterClients("clientEmail")}
+                onClick={() =>
+                  filterClients(
+                    "clientEmail",
+                    sortConditions,
+                    setSortConditions,
+                    clientListShort,
+                    setClientListShort
+                  )
+                }
               >
                 Email
               </button>
@@ -176,7 +125,15 @@ function ClientsComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterClients("Postcode")}
+                onClick={() =>
+                  filterClients(
+                    "Postcode",
+                    sortConditions,
+                    setSortConditions,
+                    clientListShort,
+                    setClientListShort
+                  )
+                }
               >
                 Postcode
               </button>
@@ -190,7 +147,15 @@ function ClientsComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterClients("clientType")}
+                onClick={() =>
+                  filterClients(
+                    "clientType",
+                    sortConditions,
+                    setSortConditions,
+                    clientListShort,
+                    setClientListShort
+                  )
+                }
               >
                 Type
               </button>

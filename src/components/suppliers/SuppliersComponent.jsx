@@ -15,6 +15,7 @@ import DarkModeContext from "../../context/DarkModeContext";
 import SupplierContext from "../../context/SupplierContext";
 import Loading from "../loading/Loading";
 import ThemeContext from "../../context/ThemeContext";
+import { filterSuppliers } from "../../functions/filter/filterTables";
 
 function SuppliersComponent() {
   const { setShowModal } = useContext(CreateModalContext);
@@ -32,130 +33,6 @@ function SuppliersComponent() {
   });
 
   const colNames = ["Name", "Email", "Phone", "Postcode", "Category"];
-
-  const filterSuppliers = (type) => {
-    const setList = (sortedList, a, b, c, d, e) => {
-      setSupplierList([]);
-      setTimeout(() => {
-        setSupplierList(sortedList);
-      }, 100);
-      setSortConditions({
-        nameSort: a,
-        emailSort: b,
-        phoneSort: c,
-        postSort: d,
-        catSort: e,
-      });
-    };
-
-    if (type === "supplierName") {
-      const compareSupplierName = (a, b) => {
-        const nameArrA = a.supplierName.split(" ");
-        const nameArrB = b.supplierName.split(" ");
-        if (nameArrA[0] < nameArrB[0]) {
-          return -1;
-        }
-        if (nameArrA[0] > nameArrB[0]) {
-          return 1;
-        }
-        return 0;
-      };
-
-      const sortedList = supplierList.sort(compareSupplierName);
-      if (sortConditions.nameSort === true) return;
-      setList(sortedList, true, false, false, false, false);
-    } else if (type === "supplierEmail") {
-      const compareEmail = (a, b) => {
-        const nameArrA = a.supplierEmail.split(" ");
-        const nameArrB = b.supplierEmail.split(" ");
-
-        if (nameArrA[0] < nameArrB[0]) {
-          return -1;
-        }
-        if (nameArrA[0] > nameArrB[0]) {
-          return 1;
-        }
-        return 0;
-      };
-      const sortedList = supplierList.sort(compareEmail);
-      if (sortConditions.emailSort === true) return;
-      setList(sortedList, false, true, false, false, false);
-    } else if (type === "supplierPhone") {
-      const comparePhone = (a, b) => {
-        const nameArrA = a.supplierPhone.split("");
-        const nameArrB = b.supplierPhone.split("");
-
-        if (nameArrA[2] < nameArrB[2]) {
-          return -1;
-        }
-        if (nameArrA[2] > nameArrB[2]) {
-          return 1;
-        }
-        if (nameArrA[3] < nameArrB[3]) {
-          return -1;
-        }
-        if (nameArrA[3] > nameArrB[3]) {
-          return 1;
-        }
-        if (nameArrA[4] < nameArrB[4]) {
-          return -1;
-        }
-        if (nameArrA[4] > nameArrB[4]) {
-          return 1;
-        }
-        if (nameArrA[5] < nameArrB[5]) {
-          return -1;
-        }
-        if (nameArrA[5] > nameArrB[5]) {
-          return 1;
-        }
-        if (nameArrA[6] < nameArrB[6]) {
-          return -1;
-        }
-        if (nameArrA[6] > nameArrB[6]) {
-          return 1;
-        }
-        if (nameArrA[7] < nameArrB[7]) {
-          return -1;
-        }
-        if (nameArrA[7] > nameArrB[7]) {
-          return 1;
-        }
-        if (nameArrA[8] < nameArrB[8]) {
-          return -1;
-        }
-        if (nameArrA[8] > nameArrB[8]) {
-          return 1;
-        }
-      };
-      const sortedList = supplierList.sort(comparePhone);
-      if (sortConditions.phoneSort === true) return;
-      setList(sortedList, false, false, true, false, false);
-    } else if (type === "Postcode") {
-      const sortedList = supplierList.sort((a, b) => {
-        return b.supplierPostcode - a.supplierPostcode;
-      });
-      if (sortConditions.postSort === true) return;
-
-      setList(sortedList, false, false, false, true, false);
-    } else if (type === "Category") {
-      const compareCategory = (a, b) => {
-        const nameArrA = a.supplierCategory.split(" ");
-        const nameArrB = b.supplierCategory.split(" ");
-
-        if (nameArrA[0] < nameArrB[0]) {
-          return -1;
-        }
-        if (nameArrA[0] > nameArrB[0]) {
-          return 1;
-        }
-        return 0;
-      };
-      const sortedList = supplierList.sort(compareCategory);
-      if (sortConditions.catSort === true) return;
-      setList(sortedList, false, false, false, false, true);
-    }
-  };
 
   useEffect(() => {
     getSuppliers();
@@ -205,7 +82,15 @@ function SuppliersComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterSuppliers("supplierName")}
+                onClick={() =>
+                  filterSuppliers(
+                    "supplierName",
+                    sortConditions,
+                    setSortConditions,
+                    supplierList,
+                    setSupplierList
+                  )
+                }
               >
                 Name
               </button>
@@ -219,7 +104,15 @@ function SuppliersComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterSuppliers("supplierEmail")}
+                onClick={() =>
+                  filterSuppliers(
+                    "supplierEmail",
+                    sortConditions,
+                    setSortConditions,
+                    supplierList,
+                    setSupplierList
+                  )
+                }
               >
                 Email
               </button>
@@ -233,7 +126,15 @@ function SuppliersComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterSuppliers("supplierPhone")}
+                onClick={() =>
+                  filterSuppliers(
+                    "supplierPhone",
+                    sortConditions,
+                    setSortConditions,
+                    supplierList,
+                    setSupplierList
+                  )
+                }
               >
                 Phone
               </button>
@@ -247,7 +148,15 @@ function SuppliersComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterSuppliers("Postcode")}
+                onClick={() =>
+                  filterSuppliers(
+                    "Postcode",
+                    sortConditions,
+                    setSortConditions,
+                    supplierList,
+                    setSupplierList
+                  )
+                }
               >
                 Postcode
               </button>
@@ -261,7 +170,15 @@ function SuppliersComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterSuppliers("Category")}
+                onClick={() =>
+                  filterSuppliers(
+                    "Category",
+                    sortConditions,
+                    setSortConditions,
+                    supplierList,
+                    setSupplierList
+                  )
+                }
               >
                 Category
               </button>

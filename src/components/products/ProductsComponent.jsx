@@ -15,6 +15,7 @@ import DarkModeContext from "../../context/DarkModeContext";
 import ProductContext from "../../context/ProductContext";
 import Loading from "../loading/Loading";
 import ThemeContext from "../../context/ThemeContext";
+import { filterProducts } from "../../functions/filter/filterTables";
 
 function ProductsComponent() {
   const { setShowModal } = useContext(CreateModalContext);
@@ -29,68 +30,6 @@ function ProductsComponent() {
     priceSort: false,
     margSort: false,
   });
-
-  const filterProducts = (type) => {
-    const setList = (sortedList, a, b, c, d) => {
-      setProductsList([]);
-      setTimeout(() => {
-        setProductsList(sortedList);
-      }, 100);
-      setSortConditions({
-        nameSort: a,
-        catSort: b,
-        priceSort: c,
-        margSort: d,
-      });
-    };
-
-    if (type === "productName") {
-      const compareProductName = (a, b) => {
-        const nameArrA = a.productName.split(" ");
-        const nameArrB = b.productName.split(" ");
-        if (nameArrA[0] < nameArrB[0]) {
-          return -1;
-        }
-        if (nameArrA[0] > nameArrB[0]) {
-          return 1;
-        }
-        return 0;
-      };
-
-      const sortedList = productsList.sort(compareProductName);
-      if (sortConditions.nameSort === true) return;
-      setList(sortedList, true, false, false, false);
-    } else if (type === "productCategory") {
-      const compareCategory = (a, b) => {
-        const nameArrA = a.productCategory.split(" ");
-        const nameArrB = b.productCategory.split(" ");
-
-        if (nameArrA[0] < nameArrB[0]) {
-          return -1;
-        }
-        if (nameArrA[0] > nameArrB[0]) {
-          return 1;
-        }
-        return 0;
-      };
-      const sortedList = productsList.sort(compareCategory);
-      if (sortConditions.catSort === true) return;
-      setList(sortedList, false, true, false, false);
-    } else if (type === "costPrice") {
-      const sortedList = productsList.sort((a, b) => {
-        return b.productCostPrice - a.productCostPrice;
-      });
-      if (sortConditions.priceSort === true) return;
-      setList(sortedList, false, false, true, false);
-    } else if (type === "%Margain") {
-      const sortedList = productsList.sort((a, b) => {
-        return b.productProfitMargain - a.productProfitMargain;
-      });
-      if (sortConditions.dateSort === true) return;
-
-      setList(sortedList, false, false, false, true);
-    }
-  };
 
   const colNames = [
     "Product Name",
@@ -147,7 +86,15 @@ function ProductsComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterProducts("productName")}
+                onClick={() =>
+                  filterProducts(
+                    "productName",
+                    sortConditions,
+                    setSortConditions,
+                    productsList,
+                    setProductsList
+                  )
+                }
               >
                 Name
               </button>
@@ -161,7 +108,15 @@ function ProductsComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterProducts("productCategory")}
+                onClick={() =>
+                  filterProducts(
+                    "productCategory",
+                    sortConditions,
+                    setSortConditions,
+                    productsList,
+                    setProductsList
+                  )
+                }
               >
                 Category
               </button>
@@ -175,7 +130,15 @@ function ProductsComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterProducts("costPrice")}
+                onClick={() =>
+                  filterProducts(
+                    "costPrice",
+                    sortConditions,
+                    setSortConditions,
+                    productsList,
+                    setProductsList
+                  )
+                }
               >
                 Price
               </button>
@@ -189,7 +152,15 @@ function ProductsComponent() {
                     ? `bg-${accentColor}-500 text-white`
                     : ""
                 }`}
-                onClick={() => filterProducts("%Margain")}
+                onClick={() =>
+                  filterProducts(
+                    "%Margain",
+                    sortConditions,
+                    setSortConditions,
+                    productsList,
+                    setProductsList
+                  )
+                }
               >
                 % Margain
               </button>

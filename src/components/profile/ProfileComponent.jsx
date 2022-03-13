@@ -18,6 +18,9 @@ import SalesContext from "../../context/SalesContext";
 import Loading from "../loading/Loading";
 import ThemeContext from "../../context/ThemeContext";
 
+// FUNCTIONS
+import { filterUserSales } from "../../functions/filter/filterTables";
+
 function ProfileComponent() {
   const { setShowModal } = useContext(CreateModalContext);
   const { darkMode } = useContext(DarkModeContext);
@@ -32,69 +35,6 @@ function ProfileComponent() {
     grandSort: false,
     dateSort: false,
   });
-
-  const filterSales = (type) => {
-    const setList = (sortedList, a, b, c, d) => {
-      setUserSalesList([]);
-      setTimeout(() => {
-        setUserSalesList(sortedList);
-      }, 100);
-      setSortConditions({
-        nameSort: a,
-        emailSort: b,
-        grandSort: c,
-        dateSort: d,
-      });
-    };
-    if (type === "clientName") {
-      const compareClientName = (a, b) => {
-        const nameArrA = a.salesClient.split(" ");
-        const nameArrB = b.salesClient.split(" ");
-        if (nameArrA[0] < nameArrB[0]) {
-          return -1;
-        }
-        if (nameArrA[0] > nameArrB[0]) {
-          return 1;
-        }
-        return 0;
-      };
-
-      const sortedList = userSalesList.sort(compareClientName);
-      if (sortConditions.nameSort === true) return;
-      setList(sortedList, true, false, false, false);
-    } else if (type === "clientEmail") {
-      const compareEmail = (a, b) => {
-        const nameArrA = a.salesClientEmail.split(" ");
-        const nameArrB = b.salesClientEmail.split(" ");
-
-        if (nameArrA[0] < nameArrB[0]) {
-          return -1;
-        }
-        if (nameArrA[0] > nameArrB[0]) {
-          return 1;
-        }
-        return 0;
-      };
-      const sortedList = userSalesList.sort(compareEmail);
-      if (sortConditions.emailSort === true) return;
-      setList(sortedList, false, true, false, false);
-    } else if (type === "grandTotal") {
-      const sortedList = userSalesList.sort((a, b) => {
-        return b.grandTotal - a.grandTotal;
-      });
-      if (sortConditions.grandSort === true) return;
-      setList(sortedList, false, false, true, false);
-    } else if (type === "saleDate") {
-      const sortedList = userSalesList.sort((a, b) => {
-        const date1 = new Date(a.date);
-        const date2 = new Date(b.date);
-
-        return date2 - date1;
-      });
-      if (sortConditions.dateSort === true) return;
-      setList(sortedList, false, false, false, true);
-    }
-  };
 
   const colNames = [
     "Client",
@@ -185,7 +125,15 @@ function ProfileComponent() {
                   ? `bg-${accentColor}-500 text-white`
                   : ""
               }`}
-              onClick={() => filterSales("clientName")}
+              onClick={() =>
+                filterUserSales(
+                  "clientName",
+                  sortConditions,
+                  setSortConditions,
+                  userSalesList,
+                  setUserSalesList
+                )
+              }
             >
               Client
             </button>
@@ -199,7 +147,15 @@ function ProfileComponent() {
                   ? `bg-${accentColor}-500 text-white`
                   : ""
               }`}
-              onClick={() => filterSales("clientEmail")}
+              onClick={() =>
+                filterUserSales(
+                  "clientEmail",
+                  sortConditions,
+                  setSortConditions,
+                  userSalesList,
+                  setUserSalesList
+                )
+              }
             >
               Email
             </button>
@@ -213,7 +169,15 @@ function ProfileComponent() {
                   ? `bg-${accentColor}-500 text-white`
                   : ""
               }`}
-              onClick={() => filterSales("grandTotal")}
+              onClick={() =>
+                filterUserSales(
+                  "grandTotal",
+                  sortConditions,
+                  setSortConditions,
+                  userSalesList,
+                  setUserSalesList
+                )
+              }
             >
               Total
             </button>
@@ -227,7 +191,15 @@ function ProfileComponent() {
                   ? `bg-${accentColor}-500 text-white`
                   : ""
               }`}
-              onClick={() => filterSales("saleDate")}
+              onClick={() =>
+                filterUserSales(
+                  "saleDate",
+                  sortConditions,
+                  setSortConditions,
+                  userSalesList,
+                  setUserSalesList
+                )
+              }
             >
               Date
             </button>
