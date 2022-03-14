@@ -68,6 +68,7 @@ export const SalesContextProvider = ({ children }) => {
 
     const salesDocRef = doc(db, "sales", saleUID);
     const docSnap = await getDoc(salesDocRef);
+
     if (!docSnap.exists()) {
       try {
         await setDoc(doc(db, "sales", saleUID), {
