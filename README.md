@@ -1,5 +1,8 @@
 ## Admin/Sales Dash
 
+## Usage
+Requires oAuth to access application, all data stored and secured in the firebase cloud.
+
 ## About
 This is a sales dashboard connected to firebase to store and retrieve data. It allows users to sign in from oAuth then create different parts of a sales chain, like customers, clients, suppliers etc. you can then create sales that will link to a customer or client etc. and store that in the database, giving you a complete system.
 
