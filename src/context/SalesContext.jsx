@@ -296,7 +296,7 @@ export const SalesContextProvider = ({ children }) => {
       return salesSnap.forEach((doc) => {
         doc.data().productData.map((data) => {
           if (graphData.name === data.productName) {
-            graphData.sales += Number(data.quantity);
+            return (graphData.sales += Number(data.quantity));
           }
         });
       });
