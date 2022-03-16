@@ -5,7 +5,7 @@ import Main from "../components/Main";
 import CreateModal from "../components/createmodal/CreateModal";
 import CreateModalContent from "../components/createmodal/CreateModalContent";
 // STATE
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import CreateModalContext from "../context/CreateModalContext";
 import ThemeContext from "../context/ThemeContext";
 import ThemeModal from "../components/theme/ThemeModal";

@@ -1,12 +1,10 @@
-import { useContext, useEffect } from "react";
-import DarkModeContext from "../context/DarkModeContext";
-import SalesContext from "../context/SalesContext";
+import { useContext } from "react";
 // STATE
+import DarkModeContext from "../context/DarkModeContext";
 import SidebarContext from "../context/SidebarContext";
-import UserContext from "../context/UserContext";
+// COMPONENTS
 import AnalyticsComponent from "./analytics/AnalyticsComponent";
 import ClientsComponent from "./clients/ClientsComponent";
-// COMPONENTS
 import HomeComponent from "./home/HomeComponent";
 import ProductsComponent from "./products/ProductsComponent";
 import ProfileComponent from "./profile/ProfileComponent";

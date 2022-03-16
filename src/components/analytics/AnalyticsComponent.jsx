@@ -1,13 +1,12 @@
+// STATE
 import { useContext, useEffect } from "react";
 import DarkModeContext from "../../context/DarkModeContext";
 import ThemeContext from "../../context/ThemeContext";
+import SalesContext from "../../context/SalesContext";
 // RECHARTS
-import React, { PureComponent } from "react";
 import {
   PieChart,
   Pie,
-  Sector,
-  Cell,
   ResponsiveContainer,
   Tooltip,
   BarChart,
@@ -15,8 +14,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
-import SalesContext from "../../context/SalesContext";
 
 function AnalyticsComponent() {
   const { darkMode } = useContext(DarkModeContext);
@@ -34,6 +31,7 @@ function AnalyticsComponent() {
     getUserSalesPercentages();
     getClientSalesPercentages();
     getProductSalesData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

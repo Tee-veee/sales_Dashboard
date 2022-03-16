@@ -16,6 +16,7 @@ function ProductModalContent() {
 
   useEffect(() => {
     getProductCat();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -69,6 +69,7 @@ function SaleModalContent() {
     });
     getClients(false, true);
     getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAddProduct = (productNum, e) => {

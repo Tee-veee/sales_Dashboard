@@ -1,5 +1,7 @@
 // COMPONENTS
 import Card from "../Card";
+import Table from "../table/Table";
+import Loading from "../loading/Loading";
 // REACT
 import { useContext, useEffect, useState } from "react";
 // ASSETS
@@ -12,10 +14,7 @@ import { BsFilterRight } from "react-icons/bs";
 import CreateModalContext from "../../context/CreateModalContext";
 import DarkModeContext from "../../context/DarkModeContext";
 import UserContext from "../../context/UserContext";
-import Table from "../table/Table";
-
 import SalesContext from "../../context/SalesContext";
-import Loading from "../loading/Loading";
 import ThemeContext from "../../context/ThemeContext";
 
 // FUNCTIONS
@@ -46,6 +45,7 @@ function ProfileComponent() {
 
   useEffect(() => {
     getUserSales(user);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

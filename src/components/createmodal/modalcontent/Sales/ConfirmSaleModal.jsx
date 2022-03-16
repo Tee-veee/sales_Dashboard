@@ -3,7 +3,6 @@ import { useEffect, useState, useContext } from "react";
 import SalesContext from "../../../../context/SalesContext";
 import { db } from "../../../../firebase";
 import Loading from "../../../loading/Loading";
-import SaleDetails from "./SaleDetails";
 import SaleProductDetails from "./SaleProductDetails";
 function ConfirmSaleModal({
   formData,
@@ -14,13 +13,13 @@ function ConfirmSaleModal({
   saleProductFour,
   saleProductFive,
 }) {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [saleProductOneData, setSaleProductOneData] = useState([]);
   const [saleProductTwoData, setSaleProductTwoData] = useState([]);
   const [saleProductThreeData, setSaleProductThreeData] = useState([]);
   const [saleProductFourData, setSaleProductFourData] = useState([]);
   const [saleProductFiveData, setSaleProductFiveData] = useState([]);
-  const [grandTotalArr, setGrandTotalArr] = useState([]);
+  const [grandTotalArr] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
 
   const { createSale } = useContext(SalesContext);
@@ -62,6 +61,7 @@ function ConfirmSaleModal({
     checkIfEmpty(saleProductFour, setSaleProductFourData);
     checkIfEmpty(saleProductFive, setSaleProductFiveData);
     sumGT();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sumGT = () => {

@@ -1,6 +1,7 @@
 // COMPONENTS
 import Card from "../Card";
 import Table from "../table/Table";
+import Loading from "../loading/Loading";
 // REACT
 import { useContext, useEffect, useState } from "react";
 // ASSETS
@@ -13,8 +14,8 @@ import { MdAdd } from "react-icons/md";
 import CreateModalContext from "../../context/CreateModalContext";
 import DarkModeContext from "../../context/DarkModeContext";
 import ClientContext from "../../context/ClientContext";
-import Loading from "../loading/Loading";
 import ThemeContext from "../../context/ThemeContext";
+// FUNCTIONS
 import { filterClients } from "../../functions/filter/filterTables";
 
 function ClientsComponent() {
@@ -35,6 +36,7 @@ function ClientsComponent() {
 
   useEffect(() => {
     getClients(true, false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

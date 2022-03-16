@@ -1,21 +1,20 @@
 // COMPONENTS
 import Card from "../Card";
 import Table from "../table/Table";
+import Loading from "../loading/Loading";
 // ASSETS
 import { AiOutlineDollar } from "react-icons/ai";
 import { FaBriefcase } from "react-icons/fa";
-import fakeGraph2 from "../../assets/graphPlaceholder2.svg";
+import { BsFilterRight } from "react-icons/bs";
+import { MdAdd } from "react-icons/md";
 // REACT
 import { useContext, useEffect, useState } from "react";
 // STATE
-import UserContext from "../../context/UserContext";
 import DarkModeContext from "../../context/DarkModeContext";
-import { BsFilterRight } from "react-icons/bs";
-import { MdAdd } from "react-icons/md";
 import CreateModalContext from "../../context/CreateModalContext";
 import SalesContext from "../../context/SalesContext";
-import Loading from "../loading/Loading";
 import ThemeContext from "../../context/ThemeContext";
+// FUNCTIONS
 import { filterSales } from "../../functions/filter/filterTables";
 
 function SalesComponent() {
@@ -33,6 +32,7 @@ function SalesComponent() {
 
   useEffect(() => {
     getSales();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const colNames = [

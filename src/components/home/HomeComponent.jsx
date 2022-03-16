@@ -17,16 +17,16 @@ import ThemeContext from "../../context/ThemeContext";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
 
 function HomeComponent() {
-  const { user, getUsers, userListShort, setUser } = useContext(UserContext);
+  const { user, getUsers, userListShort } = useContext(UserContext);
   const { getTopSales, topSalesList, grandTotalArray } =
     useContext(SalesContext);
   const { darkMode } = useContext(DarkModeContext);
   const { accentColor } = useContext(ThemeContext);
 
-  const svgRef = useRef();
   useEffect(() => {
     getTopSales();
     getUsers(true, false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const colNamesUsers = ["name", "email"];

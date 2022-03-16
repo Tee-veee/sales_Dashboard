@@ -6,7 +6,7 @@ import {
   getDocs,
   collection,
 } from "firebase/firestore";
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext } from "react";
 import { toast } from "react-toastify";
 import { db } from "../firebase";
 import CreateModalContext from "./CreateModalContext";
@@ -15,7 +15,6 @@ const SalesContext = createContext();
 export const SalesContextProvider = ({ children }) => {
   const { setShowModal } = useContext(CreateModalContext);
   // LISTS
-  const [productData, setProductData] = useState([]);
   const [salesList, setSalesList] = useState();
   const [userSalesList, setUserSalesList] = useState();
   const [topSalesList, setTopSalesList] = useState();
