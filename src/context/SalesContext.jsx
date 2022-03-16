@@ -294,7 +294,7 @@ export const SalesContextProvider = ({ children }) => {
 
     dataArr.forEach((graphData) => {
       return salesSnap.forEach((doc) => {
-        doc.data().productData.map((data) => {
+        return doc.data().productData.map((data) => {
           if (graphData.name === data.productName) {
             return (graphData.sales += Number(data.quantity));
           }

@@ -7,7 +7,7 @@ import { AiOutlineDollar, AiOutlineShoppingCart } from "react-icons/ai";
 import { FaBriefcase } from "react-icons/fa";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 // REACT
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect } from "react";
 // STATE
 import UserContext from "../../context/UserContext";
 import DarkModeContext from "../../context/DarkModeContext";

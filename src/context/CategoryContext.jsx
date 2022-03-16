@@ -44,7 +44,7 @@ export const CategoryProvider = ({ children }) => {
         toast.error("Could not add to database");
       }
     } else {
-      console.log(docSnap);
+      toast.error("Could not create document");
     }
   };
 
@@ -76,14 +76,15 @@ export const CategoryProvider = ({ children }) => {
           categoryName: supplierCat,
           timestamp: serverTimestamp(),
         });
+        toast.success("Supplier Category Added");
         setShowSupplierInput(false);
         setShowSupplierTooltip(false);
         getSupplierCat();
       } catch (error) {
-        console.log(error);
+        toast.error("Could not add to database");
       }
     } else {
-      console.log(docSnap);
+      toast.error("Could not create document");
     }
   };
 
